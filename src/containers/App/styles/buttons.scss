@@ -1,0 +1,16 @@
+.btn{
+    
+}
+
+.btn-primary.btn-primary-modified {
+    background: #34495e;
+    color: white;
+    border: none;
+    border-bottom: solid #0A1F23;
+    padding: 11px 21px;
+    text-align: left;
+
+    &:hover, &:visited, &:active, &:focus  {
+        background: #415B76;
+    }
+}

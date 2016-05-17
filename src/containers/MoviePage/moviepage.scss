@@ -1,0 +1,51 @@
+:global(body) {
+    #movie-cover {
+        height: 350px;
+        background-position: center;
+        background-size: cover;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 75%)
+    }
+
+    #movie-img {
+        position: relative;
+        top: -120px
+    }
+
+    .movie-meta {
+        line-height: 30px;
+    }
+
+    .movie-desc {
+        line-height: 20px; 
+        margin-top: 20px;
+    }
+
+    .movie-reviews {
+        margin-top: 25px;
+
+        .movie-reviews__row {
+            margin-bottom: 20px;
+        }
+
+        .movie-reviews__single__username {
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        .movie-reviews__single__review {
+            background: #FBFBFB; 
+            padding: 12px;
+            border: solid thin #E6E6E6; 
+            border-radius: 2px
+        }
+
+        movie-reviews__single__review__rating {
+            margin-top: 5px
+        }
+
+        .movie-reviews__single__review_comment {
+            font-size: 13px;
+            margin-top: 10px;
+        }
+    }
+}

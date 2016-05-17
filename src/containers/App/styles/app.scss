@@ -3,12 +3,24 @@
 @import 'fonts/roboto';
 @import 'typography';
 @import 'links';
+@import 'buttons';
 
 :global(body) {
   position: relative;
 
-  h1 {
-    margin-top: 80px;
+  .fa {
+    margin-right: 6px;
+  }
+
+  .section-header {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    color: #8E8E8E;
+    border-bottom: solid thin #E6E6E6;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    margin-top: 120px;
   }
 
   h2 {
@@ -16,6 +28,15 @@
   }
 
   img {
-    width: 100%;
+    
+  }
+
+  .form-error:empty {
+    display: none
+  }
+  .form-error {
+    padding: 10px 0 5px;
+    display: block;
+    color: #F44336;
   }
 }

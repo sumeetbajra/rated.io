@@ -3,8 +3,8 @@ import DocumentMeta from 'react-document-meta';
 
 /* components */
 import { TopImage } from 'components/TopImage';
-import { Tools } from 'components/Tools';
-import { Projects } from 'components/Projects';
+import { LatestMovies } from 'components/Home/LatestMovies';
+import { BestMovies } from 'components/Home/BestMovies';
 
 const metaData = {
   title: 'Redux Easy Boilerplate',
@@ -24,8 +24,8 @@ export class Home extends Component {
       <section>
         <DocumentMeta {...metaData} />
         <TopImage />
-        <Tools />
-        <Projects />
+        <LatestMovies />
+        <BestMovies />
       </section>
     );
   }

@@ -4,8 +4,9 @@
 
   width: 100%;
 
-  padding: 20px 0;
+  padding: 10px 0;
   opacity: 1;
+  top: 0;
 
   background: rgba(0, 0, 0, .8);
 
@@ -17,17 +18,37 @@
 
     a {
       font-weight: bold;
+      text-decoration: none;
+      font-family: 'Bangers', cursive;
+      font-size: 34px;
+      font-weight: lighter;
+      color: #00D8FF;
+
+      &:visited, &:active {
+        text-decoration: none;
+      }
     }
+  }
+
+  .right-nav {
+    line-height: 48px;
   }
   
   nav {
 
     a {
       margin-right: 20px;
+      text-decoration: none;
+      color: white;
       
       &.active {
         font-weight: bold;
       }
     }
+  }
+
+  .right-nav__welcome {
+    color: white;
+    margin-right: 20px;
   }
 }

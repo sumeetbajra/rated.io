@@ -1,0 +1,69 @@
+:local(.styles) {
+    
+    margin-top: 80px;
+
+    .user-row {
+        text-align: center;
+        border: solid thin #DCDCDC;
+        padding: 35px 0;
+        border-radius: 5px;
+
+        .user-row__username {
+           font-size: 17px;
+            color: #0098B3;
+        }    
+
+        .user-row__name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 24px;
+        }
+
+        .user-row__description {
+            margin-top: 20px;
+            line-height: 28px;
+            text-align: left;
+            padding-left: 25px;
+            font-size: 13px;
+
+            div i {
+                width: 20px;
+            }
+        }
+
+        .user-row__pic {
+        }
+    }
+
+    .user-ratings-row {
+
+        padding: 0 40px;
+
+        .user-ratings-row__header {
+            font-size: 21px;
+            text-transform: uppercase;
+            color: #808080;
+            border-bottom: solid thin #ECECEC;
+            padding-bottom: 27px;
+            margin-bottom: 40px;
+        }
+
+        .user-ratings-row__movie {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            .user-ratings-row__movie__movie-rating__name {
+                margin: 10px 0;
+                font-size: 21px;
+            }
+
+            .user-ratings-row__movie__movie-rating__stars {
+                margin: 13px 0 17px 0;
+            }
+
+            .user-ratings-row__movie__movie-rating_review {
+                line-height: 24px;
+            }
+        }
+    }
+    
+}

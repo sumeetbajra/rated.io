@@ -20,7 +20,7 @@ export class Tools extends Component {
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
               <h2>
-                Boilerplate contains
+                Latest this week
               </h2>
             </div>
           </div>

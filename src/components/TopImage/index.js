@@ -38,7 +38,7 @@ export class TopImage extends Component {
                 wait={700}
               >
                 <h1 className="title">
-                  Redux Easy Boilerplate
+                  Rated.io
                 </h1>
               </LoadingOrderAnimation>
               <LoadingOrderAnimation animation="fade-in"
@@ -48,8 +48,14 @@ export class TopImage extends Component {
                 wait={900}
               >
                 <p>
-                  Start your project easy and fast with modern tools
+                  The best source for quality movie reviews by experts.
                 </p>
+                <form className="form-inline">
+                  <div className="form-group">
+                    <input type="text" placeholder="Search for movies" className="input form-control top-image__input"/>
+                    <button className="btn btn-primary">Search</button>
+                  </div>
+                </form>
               </LoadingOrderAnimation>
             </div>
           </div>
