@@ -23,6 +23,11 @@ export function users(state = initialState, action) {
 
         case 'LOGIN_USER':
             localStorage.setItem('token', action.userData.token);
+            localStorage.setItem('userData', JSON.stringify({
+                username: action.userData.user.username, 
+                firstName: action.userData.user.firstName, 
+                lastName: action.userData.user.lastName
+            }));
             location.hash = "/";
             return {
                 ...state,
@@ -35,7 +40,8 @@ export function users(state = initialState, action) {
             break;
 
         case 'LOGOUT':
-            localStorage.setItem('token', null);
+            localStorage.removeItem('token');
+            localStorage.removeItem('userData');
             return {
                 ...state,
                 session: {

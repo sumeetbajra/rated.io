@@ -1,7 +1,10 @@
 import request from 'superagent';
 import { APIEndpoints } from 'constants/CommonConstants';
+import {toastr} from 'react-redux-toastr'
 
 function addMovieResponse(payload) {
+    
+    toastr.success('Success', 'The movie has been added successfully.');
     return {
         type: 'ADD_MOVIE',
         payload
@@ -16,9 +19,16 @@ function getAllMoviesResponse(payload) {
 }
 
 function deleteMovieResponse(id) {
+    toastr.success('Success', 'The movie has been deleted successfully.');
     return {
         type: 'DELETE_MOVIE',
         id
+    }
+}
+
+function cancelDeleteMovie() {
+    return {
+        type: 'CANCEL_DELETE_MOVIE'
     }
 }
 
@@ -33,6 +43,7 @@ export function addMovie(payload) {
     return dispatch => {
         request.post(APIEndpoints.ADD_MOVIE)
         .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('token'))
         .send(payload)
         .end(function(err, res) {
             if(!res.error) {
@@ -45,6 +56,7 @@ export function addMovie(payload) {
 export function getAllMovies() {
     return dispatch => {
         request.get(APIEndpoints.MOVIES)
+        .set('authorization', localStorage.getItem('token'))
         .end(function(err, res) {
             if(!res.error) {
                 dispatch(getAllMoviesResponse(res.body.res));
@@ -55,18 +67,27 @@ export function getAllMovies() {
 
 export function deleteMovie(id) {
     return dispatch => {
-        request.delete(APIEndpoints.MOVIES + id)
-        .end(function(err, res) {
-            if(!res.error) {
-                dispatch(deleteMovieResponse(id));
+        toastr.confirm('Are you sure about that!', {
+            onOk: () => {
+                request.delete(APIEndpoints.MOVIES + id)
+                .set('authorization', localStorage.getItem('token'))
+                .end(function(err, res) {
+                    if(!res.error) {
+                        dispatch(deleteMovieResponse(id));
+                    }
+                })
+            },
+            onCancel: () => {
+                cancelDeleteMovie();
             }
-        })
-    }
+        });
+    }    
 }
 
 export function getMovie(id) {
     return dispatch => {
         request.get(APIEndpoints.MOVIES + id)
+        .set('authorization', localStorage.getItem('token'))
         .end(function(err, res) {
             if(!res.error) {
                 dispatch(getMovieResponse(res.body.res));

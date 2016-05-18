@@ -25,10 +25,10 @@ export class Header extends Component {
             </div>
 
             <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs text-right right-nav">
-              {this.props.session.token ? 
+              {localStorage.getItem('token') ? 
                 <nav>
                   <span className="right-nav__welcome">
-                    Welcome {this.props.session.userData.firstName}
+                    Welcome {JSON.parse(localStorage.getItem('userData')).firstName}
                   </span>
                   <a href="#" onClick={this.props.logout}>
                     Logout

@@ -1,4 +1,3 @@
-
 const initialState = {
     movies: [], 
     added: false,
@@ -9,6 +8,7 @@ export function movies(state = initialState, action) {
     switch(action.type) {
 
         case 'ADD_MOVIE':
+            location.hash = "/admin/list";
             return {
                 ...state,
                 movies: [

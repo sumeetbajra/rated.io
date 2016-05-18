@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReduxToastr from 'react-redux-toastr'
 
 /* global styles for app */
 import './styles/app.scss';
@@ -23,6 +24,10 @@ export class App extends Component {
   render() {
     return (
       <section>
+      <ReduxToastr
+        timeOut={4000}
+        newestOnTop={false}
+        position="top-right"/>
         <Header {...this.props}/>
         {this.props.children}
         <Footer />
