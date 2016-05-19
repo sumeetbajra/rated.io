@@ -5,7 +5,7 @@ export class MovieCover extends Component {
         return (
             <div className="row" id="movie-cover" style={
                 {
-                    backgroundImage: 'url("http://blogs-images.forbes.com/scottmendelson/files/2016/03/captain-america-civil-war-poster-fea-1200x737.jpg")'
+                    backgroundImage: 'url("' + this.props.img + '")'
                 }
             }>
             </div>

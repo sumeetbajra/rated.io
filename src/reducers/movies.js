@@ -1,7 +1,9 @@
 const initialState = {
     movies: [], 
     added: false,
-    movieData: {}
+    movieData: {},
+    bestMovies: [],
+    latestMovies: []
 }
 
 export function movies(state = initialState, action) {
@@ -37,7 +39,22 @@ export function movies(state = initialState, action) {
                 return movie._id != action.id
             });
             return {
+                ...state,
                 movies: movies
+            }
+            break;
+
+        case 'LATEST_MOVIES_RESPONSE':
+            return {
+                ...state,
+                latestMovies: action.res
+            }
+            break;
+
+        case 'BEST_MOVIES_RESPONSE':
+            return {
+                ...state,
+                bestMovies: action.res
             }
             break;
 

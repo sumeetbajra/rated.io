@@ -1,98 +1,42 @@
 import React, { Component } from 'react';
+import Slider from 'react-slick';
 
 import { styles } from './styles/styles.scss';
 
 export class BestMovies extends Component {
     render() {
+        var settings = {
+          dots: false,
+          infinite: false,
+          speed: 500,
+          slidesToShow: 8,
+          slidesToScroll: 1
+        };
         return (
-            <section id="latest-movies" className={`${styles}`}>
+            <section id="best-movies" className={`${styles}`}>
                 <div className="container">
                     <h2>Best Movies this week</h2>
                     <div className="row">
-                        <div className="col-sm-2">
-                            <img src="http://www.fubiz.net/wp-content/uploads/2015/02/movie-posters-twofive-04.jpg" className="img-responsive"/>
-                            <div className="movie-details">
-                                <span className="movie-details__title">
-                                    It follows (2015)
-                                </span>
-                                <span className="movie-details__rating">
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    &nbsp;3.2 (400)
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-sm-2">
-                            <img src="http://www.fubiz.net/wp-content/uploads/2015/02/Lost-River.jpg" className="img-responsive"/>
-                            <div className="movie-details">
-                                <span className="movie-details__title">
-                                    Lost River (2013)
-                                </span>
-                                <span className="movie-details__rating">
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    &nbsp;3.2 (400)
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-sm-2">
-                            <img src="http://www.fubiz.net/wp-content/uploads/2015/02/Vice-Versa.png" className="img-responsive"/>
-                            <div className="movie-details">
-                                <span className="movie-details__title">
-                                    Inside Out (2016)
-                                </span>
-                                <span className="movie-details__rating">
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    &nbsp;3.2 (400)
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-sm-2">
-                            <img src="http://www.fubiz.net/wp-content/uploads/2015/02/Un-homme-ideal.jpg" className="img-responsive"/>
-                            <div className="movie-details">
-                                <span className="movie-details__title">
-                                    Un Homme Ideal (2015)
-                                </span>
-                                <span className="movie-details__rating">
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    &nbsp;3.2 (400)
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-sm-2">
-                            <img src="http://www.fubiz.net/wp-content/uploads/2015/02/Seafog.jpg" className="img-responsive"/>
-                            <div className="movie-details">
-                                <span className="movie-details__title">
-                                    Sea of Fog (2015)
-                                </span>
-                                <span className="movie-details__rating">
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    &nbsp;3.2 (400)
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-sm-2">
-                            <img src="http://www.fubiz.net/wp-content/uploads/2015/02/0-Spectre.jpg" className="img-responsive"/>
-                            <div className="movie-details">
-                                <span className="movie-details__title">
-                                    Spectre (2015)
-                                </span>
-                                <span className="movie-details__rating">
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    &nbsp;3.2 (400)
-                                </span>
-                            </div>
-                        </div>
+                        <Slider {...settings}>
+                            {this.props.movies.map((movie) => {
+                                return (
+                                    <div className="col-sm-2" key={movie._id}>
+                                        <img src={movie.posterUrl} className="img-responsive"/>
+                                        <div className="movie-details">
+                                            <span className="movie-details__title">
+                                                {movie.title} ({movie.year})
+                                            </span>
+                                            <span className="movie-details__rating">
+                                                <i className="fa fa-star" />
+                                                <i className="fa fa-star" />
+                                                <i className="fa fa-star" />
+                                                &nbsp;3.2 (400)
+                                            </span>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </Slider>
                     </div>
                 </div>
             </section>

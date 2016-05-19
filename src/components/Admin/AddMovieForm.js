@@ -31,7 +31,8 @@ export class AddMovieForm extends Component {
                     duration: document.getElementsByName('duration')[0].value,
                     trailer: document.getElementsByName('trailer')[0].value,
                     posterUrl: document.getElementsByName('poster')[0].value,
-                    coverUrl: document.getElementsByName('cover')[0].value
+                    coverUrl: document.getElementsByName('cover')[0].value,
+                    slug: document.getElementsByName('title')[0].value.split(' ').join('-') + '-' + Date.now()
                });
             }
         });

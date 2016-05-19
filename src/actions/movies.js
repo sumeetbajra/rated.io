@@ -95,3 +95,44 @@ export function getMovie(id) {
         })
     }
 }
+
+export function getLatestMovies() {
+    return dispatch => {
+        request.post(APIEndpoints.LATEST_MOVIES)
+        .set('authorization', localStorage.getItem('token'))
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+            if(!res.error) {
+                dispatch(getLatestMoviesResponse(res.body.res));
+            }
+        })
+    }
+}
+
+function getLatestMoviesResponse(res) {
+    return {
+        type: 'LATEST_MOVIES_RESPONSE',
+        res
+    }
+}
+
+export function getBestMovies() {
+    return dispatch => {
+        request.post(APIEndpoints.BEST_MOVIES)
+        .set('authorization', localStorage.getItem('token'))
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+            if(!res.error) {
+                dispatch(getBestMoviesResponse(res.body.res));
+            }
+        })
+    }
+}
+
+
+function getBestMoviesResponse(res) {
+    return {
+        type: 'BEST_MOVIES_RESPONSE',
+        res
+    }
+}

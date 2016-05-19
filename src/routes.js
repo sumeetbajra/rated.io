@@ -19,7 +19,7 @@ export default (
     <Route path="list" component={List} />
     <Route path="register" component={Register} />
     <Route path="sign-in" component={SignIn} />
-    <Route path="movie" component={MoviePage} />
+    <Route path="movie/:id" component={MoviePage} />
     <Route path="profile" component={Profile} />
     <Route path="admin" component={Admin}>
         <Route path="add-movie" component={AddMovie} />

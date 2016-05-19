@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import DocumentMeta from 'react-document-meta';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import * as actionCreators from 'actions/movies';
 
 /* components */
 import { TopImage } from 'components/TopImage';
@@ -18,14 +22,28 @@ const metaData = {
   },
 };
 
+@connect(
+    state => state.movies,
+    dispatch => bindActionCreators(actionCreators, dispatch)
+)
 export class Home extends Component {
+
+  constructor(props) {
+    super(props) 
+  }
+
+  componentDidMount = () => {
+    this.props.getLatestMovies();
+    this.props.getBestMovies();
+  }
+
   render() {
     return (
       <section>
         <DocumentMeta {...metaData} />
         <TopImage />
-        <LatestMovies />
-        <BestMovies />
+        <LatestMovies movies={this.props.latestMovies}/>
+        <BestMovies movies={this.props.bestMovies}/>
       </section>
     );
   }
