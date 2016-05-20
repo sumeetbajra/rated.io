@@ -26,14 +26,15 @@ export class MoviePage extends Component {
     }
 
     render() {
+        let movie = this.props.movieData ? this.props.movieData : {};
         return (
              <section>
-                <MovieCover img={this.props.movieData.coverUrl}/>
+                <MovieCover img={movie.coverUrl}/>
                 <div className="container">
                     <div className="row" style={{marginTop: '-20px'}}>
-                        <MovieImg img={this.props.movieData.posterUrl}/>
+                        <MovieImg img={movie.posterUrl}/>
                         <div className="col-sm-9">
-                            <MovieDetail data={this.props.movieData}/>
+                            <MovieDetail data={movie}/>
                             <MovieReviews />
                         </div>
                     </div>

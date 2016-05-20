@@ -58,6 +58,11 @@ export function movies(state = initialState, action) {
             }
             break;
 
+        case 'UPDATE_MOVIE_RESPONSE':
+            location.hash = '/admin/list';
+            return state;
+            break;
+
         default:
             return state;
     }

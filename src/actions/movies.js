@@ -96,6 +96,27 @@ export function getMovie(id) {
     }
 }
 
+export function updateMovie(id, payload) {
+    return dispatch => {
+        request.put(APIEndpoints.MOVIES + id)
+        .set('authorization', localStorage.getItem('token'))
+        .send(payload)
+        .end(function(err, res) {
+            if(!res.error) {
+                dispatch(updateMovieResponse(res));
+            }
+        })
+    }
+}
+
+function updateMovieResponse(res) {
+    toastr.success('Success', 'The movie has been updated successfully.');
+    return {
+        type: 'UPDATE_MOVIE_RESPONSE',
+        res
+    }
+}
+
 export function getLatestMovies() {
     return dispatch => {
         request.post(APIEndpoints.LATEST_MOVIES)

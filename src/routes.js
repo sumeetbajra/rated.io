@@ -11,6 +11,7 @@ import { MoviePage } from 'containers/MoviePage';
 import { Profile } from 'containers/Profile';
 import { Admin } from 'containers/Admin';
 import { AddMovie } from 'containers/Admin/AddMovie';
+import { UpdateMovie } from 'containers/Admin/UpdateMovie';
 import { MovieList } from 'containers/Admin/MovieList';
 
 export default (
@@ -23,7 +24,7 @@ export default (
     <Route path="profile" component={Profile} />
     <Route path="admin" component={Admin}>
         <Route path="add-movie" component={AddMovie} />
-        <Route path="update-movie/:id" component={AddMovie} />
+        <Route path="update-movie/:id" component={UpdateMovie} />
         <Route path="list" component={MovieList} />
     </Route>
     <Route status={404} path="*" component={Home} />

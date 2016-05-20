@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { createForm } from 'rc-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -57,7 +58,7 @@ export class MovieList extends Component {
                                     <td>{movie.title} ({movie.year})</td>
                                     <td>{movie.director}</td>
                                     <td>{movie.cast}</td>
-                                    <td><a href="#">Edit</a> <a href="#" onClick={this.deleteMovie.bind(this, movie._id)}>Delete</a></td>
+                                    <td><Link to={'/admin/update-movie/' + movie._id}>Edit</Link> <a href="#" onClick={this.deleteMovie.bind(this, movie._id)}>Delete</a></td>
                                 </tr>
                             );
                         })}

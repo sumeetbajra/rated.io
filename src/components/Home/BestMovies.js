@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import Slider from 'react-slick';
 
 import { styles } from './styles/styles.scss';
@@ -21,7 +22,7 @@ export class BestMovies extends Component {
                             {this.props.movies.map((movie) => {
                                 return (
                                     <div className="col-sm-2" key={movie._id}>
-                                        <img src={movie.posterUrl} className="img-responsive"/>
+                                        <Link to={'/movie/' + movie._id}><img src={movie.posterUrl} className="img-responsive"/></Link>
                                         <div className="movie-details">
                                             <span className="movie-details__title">
                                                 {movie.title} ({movie.year})
