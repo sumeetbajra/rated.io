@@ -3,64 +3,139 @@ const initialState = {
     added: false,
     movieData: {},
     bestMovies: [],
-    latestMovies: []
+    latestMovies: [],
+    errorMessage: null
+}
+
+function setError(message) {
+    return {
+        ...initialState,
+        errorMessage: message
+    }
 }
 
 export function movies(state = initialState, action) {
+    console.log(action);
+    if(action.res && action.res.error && (action.res.message == 'AUTHENTICATION_ERROR' || action.res.message == 'NO_TOKEN_PROVIDED')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userData');
+        location.hash = '/sign-in';
+        return {
+            ...state,
+            errorMessage: 'Please log in.'
+        };
+    }
+
     switch(action.type) {
 
         case 'ADD_MOVIE':
-            location.hash = "/admin/list";
-            return {
-                ...state,
-                movies: [
-                    ...state.movies,
-                    action.payload
-                ],
-                added: true
+            if(!action.res.error) {
+                location.hash = "/admin/list";
+                return {
+                    ...state,
+                    movies: [
+                        ...state.movies,
+                        action.res.res
+                    ],
+                    added: true
+                }
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
             }
             break;
 
         case 'GET_ALL_MOVIES':
-            return {
-                movies: action.payload
+            if(!action.res.error) {
+                return {
+                    movies: action.res.res
+                }
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
             }
             break;
 
         case 'GET_MOVIE':
-            return {
-                ...state,
-                movieData: action.res[0]
+            if(!action.res.error) {
+                return {
+                    ...state,
+                    movieData: action.res.res[0]
+                }
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
             }
             break;
 
         case 'DELETE_MOVIE':
-            var movies = state.movies.filter(function(movie) {
-                return movie._id != action.id
-            });
-            return {
-                ...state,
-                movies: movies
+            if(!action.res.error) {
+                var movies = state.movies.filter(function(movie) {
+                    return movie._id != action.id
+                });
+                return {
+                    ...state,
+                    movies: movies
+                }
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
             }
             break;
 
         case 'LATEST_MOVIES_RESPONSE':
-            return {
-                ...state,
-                latestMovies: action.res
+            if(!action.res.error) {
+                return {
+                    ...state,
+                    latestMovies: action.res.res
+                }
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
             }
             break;
 
         case 'BEST_MOVIES_RESPONSE':
-            return {
-                ...state,
-                bestMovies: action.res
+            if(!action.res.error) {
+                return {
+                    ...state,
+                    bestMovies: action.res.res
+                }
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
             }
             break;
 
         case 'UPDATE_MOVIE_RESPONSE':
-            location.hash = '/admin/list';
-            return state;
+            if(!action.res.error) {
+                location.hash = '/admin/list';
+                return state;
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
+            }
+            break;
+
+        case 'RESET_ERROR':
+            return {
+                ...state,
+                errorMessage: null
+            }
             break;
 
         default:

@@ -30,7 +30,16 @@ export default class Form extends Component {
     }
 
     validateAlphaNumeric(rule, value, callback) {
-        var re = /^[a-z0-9A-Z]*$/;
+        var re = /^[a-z0-9A-Z ]*$/;
+        if(value && !re.test(value)) {
+            callback('The value can only be aplha numberic.');
+        }else {
+            callback();
+        }    
+    }
+
+    validateUsername(rule, value, callback) {
+        var re = /^[a-z0-9A-Z_]*$/;
         if(value && !re.test(value)) {
             callback('The value can only be aplha numberic.');
         }else {
@@ -56,6 +65,8 @@ export default class Form extends Component {
 
     submitForm = (e) => {
         e.preventDefault();
+
+        document.getElementsByName('submit')[0].innerHTML = '<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i> Please Wait';
 
         this.props.form.validateFields((error, value) => {
             if(!error) {
@@ -91,7 +102,7 @@ export default class Form extends Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="address">Address:</label>
-                    <input className="input form-control" name="address" {...getFieldProps('Address', {rules: [{required: true}, {validator: this.validateAlphaNumeric}]})} maxLength="100"/>
+                    <input className="input form-control" name="address" {...getFieldProps('Address', {rules: [{required: true}]})} maxLength="100"/>
                     <span className="form-error">{(errors = getFieldError('Address')) ? errors.join(',') : null}</span>
                 </div>
                 <div className="form-group">
@@ -111,7 +122,7 @@ export default class Form extends Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Username:</label>
-                    <input className="input form-control" name="username" {...getFieldProps('Username', {rules: [{required: true}, {validator: this.validateAlphaNumeric}]})} maxLength="20"/>
+                    <input className="input form-control" name="username" {...getFieldProps('Username', {rules: [{required: true}, {validator: this.validateUsername}]})} maxLength="20"/>
                     <span className="form-error">{(errors = getFieldError('Username')) ? errors.join(',') : null}</span>
                 </div>
                 <div className="form-group">

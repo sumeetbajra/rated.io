@@ -17,8 +17,8 @@ export class SignInForm extends Component {
         });
     }
 
-    validateAlphaNumeric(rule, value, callback) {
-        var re = /^[a-z0-9A-Z]*$/;
+    validateUsername(rule, value, callback) {
+        var re = /^[a-z0-9A-Z_]*$/;
         if(value && !re.test(value)) {
             callback('The value can only be aplha numberic.');
         }else {
@@ -35,7 +35,7 @@ export class SignInForm extends Component {
             <form onSubmit={this.login}>
                 <div className="form-group">
                     <label htmlFor="firstName">Username:</label>
-                    <input className="input form-control" name="username" {...getFieldProps('Username', {rules: [{required: true}, {validator: this.validateAlphaNumeric}]})} maxLength="20"/>
+                    <input className="input form-control" name="username" {...getFieldProps('Username', {rules: [{required: true}, {validator: this.validateUsername}]})} maxLength="20"/>
                     <span className="form-error">{(errors = getFieldError('Username')) ? errors.join(',') : null}</span>
                 </div>
                 <div className="form-group">

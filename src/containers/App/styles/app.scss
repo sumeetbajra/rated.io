@@ -7,9 +7,21 @@
 
 :global(body) {
   position: relative;
+  overflow-x: hidden;
+
+  .alert:empty {
+    display: none
+  }
 
   .fa {
     margin-right: 6px;
+  }
+
+  .btn .fa {
+    font-size: 13px;
+    position: relative;
+    top: -1px;
+    margin-right: 1px;
   }
 
   .section-header {
@@ -20,7 +32,7 @@
     border-bottom: solid thin #E6E6E6;
     padding-bottom: 15px;
     margin-bottom: 40px;
-    margin-top: 120px;
+    margin-top: 50px;
   }
 
   h2 {

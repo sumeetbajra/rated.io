@@ -25,10 +25,19 @@ export class Header extends Component {
             </div>
 
             <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs text-right right-nav">
-              {localStorage.getItem('token') ? 
+              {localStorage.getItem('token') && localStorage.getItem('token') != undefined ? 
                 <nav>
                   <span className="right-nav__welcome">
-                    Welcome {JSON.parse(localStorage.getItem('userData')).firstName}
+                    <span className="right-nav__welcome__dropdown dropdown">
+                      <a style={{cursor: 'pointer'}} className="dropdown-toggle" data-toggle="dropdown">Welcome {JSON.parse(localStorage.getItem('userData')).firstName}
+                      &nbsp;<span className="caret"></span></a>
+                      <ul className="dropdown-menu right-nav__welcome__dropdown__dropdown-menu">
+                        <li><Link to={'/profile'}><i className="fa fa-user" /> Profile</Link></li>
+                        <li><a href="#"><i className="fa fa-gear" /> Settings</a></li>
+                        <li><a href="#"><i className="fa fa-lock" /> Admin</a></li>
+                        <li><a href="#"><i className="fa fa-sign-out" /> Logout</a></li>
+                      </ul>
+                    </span>
                   </span>
                   <a href="#" onClick={this.props.logout}>
                     Logout

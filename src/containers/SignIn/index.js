@@ -24,6 +24,10 @@ export class SignIn extends Component {
         this.props.login(payload);
     }
 
+    componentWillUnmount = () => {
+        this.props.resetError();
+    }
+
     render() {
         return (
             <section style={{marginTop: '120px'}}>
@@ -33,6 +37,7 @@ export class SignIn extends Component {
                             <div className="panel panel-default">
                                 <div className="panel-heading">Login</div>
                                 <div className="panel-body">
+                                    <div className="alert alert-danger">{this.props.errorMessage}</div>
                                     <SignInForm {...this.props} />
                                 </div>
                             </div>

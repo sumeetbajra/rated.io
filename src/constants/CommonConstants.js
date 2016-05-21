@@ -1,6 +1,11 @@
+
+var serverUrl = 'http://localhost:8080/';
+
 export const APIEndpoints = {
-    ADD_MOVIE: 'http://localhost:8080/movies/add',
-    MOVIES: 'http://localhost:8080/movies/',
-    LATEST_MOVIES: 'http://localhost:8080/movies/latest',
-    BEST_MOVIES: 'http://localhost:8080/movies/best'
+    ADD_MOVIE: serverUrl + 'movies/add',
+    MOVIES: serverUrl + 'movies/',
+    LATEST_MOVIES: serverUrl + 'movies/latest',
+    BEST_MOVIES: serverUrl + 'movies/best',
+    GET_USER: serverUrl + 'users/',
+    ADD_RATING: serverUrl + 'ratings/add'
 }

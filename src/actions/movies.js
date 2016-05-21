@@ -1,28 +1,28 @@
 import request from 'superagent';
 import { APIEndpoints } from 'constants/CommonConstants';
-import {toastr} from 'react-redux-toastr'
+import {toastr} from 'react-redux-toastr';
 
-function addMovieResponse(payload) {
-    
-    toastr.success('Success', 'The movie has been added successfully.');
+function addMovieResponse(res) {
+    if(!res.error)
+        toastr.success('Success', 'The movie has been added successfully.');
     return {
         type: 'ADD_MOVIE',
-        payload
+        res
     }
 }
 
-function getAllMoviesResponse(payload) {
+function getAllMoviesResponse(res) {
     return {
         type: 'GET_ALL_MOVIES',
-        payload
+        res
     }
 }
 
-function deleteMovieResponse(id) {
-    toastr.success('Success', 'The movie has been deleted successfully.');
+function deleteMovieResponse(res) {
+     if(!res.error) toastr.success('Success', 'The movie has been deleted successfully.');
     return {
         type: 'DELETE_MOVIE',
-        id
+        res
     }
 }
 
@@ -47,7 +47,7 @@ export function addMovie(payload) {
         .send(payload)
         .end(function(err, res) {
             if(!res.error) {
-                dispatch(addMovieResponse(res.body.res));
+                dispatch(addMovieResponse(res.body));
             }
         })
     }
@@ -59,7 +59,7 @@ export function getAllMovies() {
         .set('authorization', localStorage.getItem('token'))
         .end(function(err, res) {
             if(!res.error) {
-                dispatch(getAllMoviesResponse(res.body.res));
+                dispatch(getAllMoviesResponse(res.body));
             }
         })
     }
@@ -90,7 +90,7 @@ export function getMovie(id) {
         .set('authorization', localStorage.getItem('token'))
         .end(function(err, res) {
             if(!res.error) {
-                dispatch(getMovieResponse(res.body.res));
+                dispatch(getMovieResponse(res.body));
             }
         })
     }
@@ -124,7 +124,7 @@ export function getLatestMovies() {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
             if(!res.error) {
-                dispatch(getLatestMoviesResponse(res.body.res));
+                dispatch(getLatestMoviesResponse(res.body));
             }
         })
     }
@@ -144,7 +144,7 @@ export function getBestMovies() {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
             if(!res.error) {
-                dispatch(getBestMoviesResponse(res.body.res));
+                dispatch(getBestMoviesResponse(res.body));
             }
         })
     }
@@ -154,6 +154,27 @@ export function getBestMovies() {
 function getBestMoviesResponse(res) {
     return {
         type: 'BEST_MOVIES_RESPONSE',
+        res
+    }
+}
+
+export function addRating(payload) {
+    return dispatch => {
+        request.post(APIEndpoints.ADD_RATING)
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('token'))
+        .send(payload)
+        .end(function(err, res) {
+            if(!res.error) {
+                dispatch(addRatingResponse(res.body));
+            }
+        })
+    }
+}
+
+function addRatingResponse(res) {
+    return {
+        type: 'ADD_RATING_RESPONSE',
         res
     }
 }

@@ -1,16 +1,20 @@
 import request from 'superagent';
+import { APIEndpoints } from 'constants/CommonConstants';
+import {toastr} from 'react-redux-toastr';
 
-function registerSuccess(userData) {
+function registerSuccess(res) {
+    if(!res.error)
+        toastr.success('Success', 'You have been registered successfully. Please sign in.');
     return {
         type: 'ADD_USER',
-        userData
+        res
     }
 }
 
-function loginSuccess(userData) {
+function loginSuccess(res) {
     return {
         type: 'LOGIN_USER',
-        userData
+        res
     }
 }
 
@@ -20,8 +24,9 @@ export function addUser(userData) {
         .set('Content-Type', 'application/json')
         .send(userData)
         .end(function(err, res) {
+            console.log(res);
             if(!res.error) {
-                dispatch(registerSuccess(res.body.res));
+                dispatch(registerSuccess(res.body));
             }
         })
     }
@@ -34,14 +39,40 @@ export function login(payload) {
         .send(payload)
         .end(function(err, res) {
             if(!res.error) {
-                dispatch(loginSuccess(res.body.res));
+                dispatch(loginSuccess(res.body));
             }
         })
+    }
+}
+
+export function getUser(id) {
+    return dispatch => {
+        request.get(APIEndpoints.GET_USER + id)
+        .set('Content-Type', 'application/json')
+        .set('Authorization', localStorage.getItem('token'))
+        .end(function(err, res) {
+            if(!res.error) {
+                dispatch(getUserResponse(res.body));
+            }
+        })
+    }
+}
+
+function getUserResponse(res) {
+    return {
+        type: 'GET_USER_RESPONSE',
+        res
     }
 }
 
 export function logout() {
     return {
         type: 'LOGOUT'
+    }
+}
+
+export function resetError() {
+    return {
+        type: 'RESET_ERROR'
     }
 }

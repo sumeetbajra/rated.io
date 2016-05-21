@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ReduxToastr from 'react-redux-toastr'
+import ReduxToastr from 'react-redux-toastr';
+import ReduxModal from 'react-redux-modal';
 
 /* global styles for app */
 import './styles/app.scss';
@@ -31,6 +32,7 @@ export class App extends Component {
         <Header {...this.props}/>
         {this.props.children}
         <Footer />
+        <ReduxModal />
       </section>
     );
   }
