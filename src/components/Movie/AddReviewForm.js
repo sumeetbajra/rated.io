@@ -16,10 +16,10 @@ export class AddReviewForm extends Component {
         var payload = {
             review: document.getElementsByTagName('textarea')[0].value,
             rating: document.querySelector('input[name="rating"]:checked').value,
-            userId: JSON.parse(localStorage.getItem('userData')).id,
-            movieId: this.props.movieId
+            userId: JSON.parse(localStorage.getItem('userData')).id
         }
-        this.props.addRating(payload);
+        this.props.addRating(this.props.movieId, payload);
+        this.removeThisModal();
     }
 
     render() {

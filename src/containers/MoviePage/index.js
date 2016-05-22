@@ -42,6 +42,7 @@ export class MoviePage extends Component {
     render() {
 
         let movie = this.props.movieData ? this.props.movieData : {};
+        let ratings = movie.ratings ? movie.ratings : [];
         return (
              <section>
                 <MovieCover img={movie.coverUrl}/>
@@ -50,7 +51,7 @@ export class MoviePage extends Component {
                         <MovieImg img={movie.posterUrl} addReviewModal={this.openReviewModal}/>
                         <div className="col-sm-9">
                             <MovieDetail data={movie}/>
-                            <MovieReviews movieId={movie._id}/>
+                            <MovieReviews ratings={ratings}/>
                         </div>
                     </div>
                 </div>

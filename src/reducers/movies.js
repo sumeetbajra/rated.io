@@ -64,7 +64,7 @@ export function movies(state = initialState, action) {
             if(!action.res.error) {
                 return {
                     ...state,
-                    movieData: action.res.res[0]
+                    movieData: action.res.res
                 }
             }else {
                 return {
@@ -135,6 +135,21 @@ export function movies(state = initialState, action) {
             return {
                 ...state,
                 errorMessage: null
+            }
+            break;
+
+        case 'ADD_RATING_RESPONSE':
+            if(!action.res.error) {
+                return {
+                    ...state,
+                    movieData: action.res.res
+                }
+                return state;                    
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
             }
             break;
 

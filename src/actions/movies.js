@@ -158,9 +158,9 @@ function getBestMoviesResponse(res) {
     }
 }
 
-export function addRating(payload) {
+export function addRating(id, payload) {
     return dispatch => {
-        request.post(APIEndpoints.ADD_RATING)
+        request.put(APIEndpoints.ADD_RATING + id)
         .set('Content-Type', 'application/json')
         .set('authorization', localStorage.getItem('token'))
         .send(payload)
