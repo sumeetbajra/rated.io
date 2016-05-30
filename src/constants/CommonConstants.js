@@ -7,5 +7,11 @@ export const APIEndpoints = {
     LATEST_MOVIES: serverUrl + 'movies/latest',
     BEST_MOVIES: serverUrl + 'movies/best',
     GET_USER: serverUrl + 'users/',
-    ADD_RATING: serverUrl + 'ratings/add/'
+    ADD_RATING: serverUrl + 'ratings/add/',
+    GET_USER_RATINGS: serverUrl + 'users/ratings/',
+
+    IMAGE_UPLOAD: 'https://api.imgur.com/3/image',
+    IMAGE_UPLOAD_AUTHORIZATION: 'Client-ID 931b184cacc4b7d'
+
+
 }

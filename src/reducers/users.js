@@ -8,7 +8,8 @@ const initialState = {
         userData: null
     },
     profile: null,
-    errorMessage: null
+    errorMessage: null,
+    reviews: []
 }
 
 export function users(state = initialState, action) {
@@ -86,6 +87,20 @@ export function users(state = initialState, action) {
                 return {
                     ...state,
                     profile: action.res.res
+                }
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
+            }
+            break;
+
+        case 'GET_USER_RATINGS_RESPONSE':
+            if(!action.res.error) {
+                return {
+                    ...state, 
+                    reviews: action.res.res
                 }
             }else {
                 return {

@@ -16,16 +16,18 @@ export class Profile extends Component {
 
     componentDidMount() {
         this.props.getUser(JSON.parse(localStorage.getItem('userData')).id);
+        this.props.getUserRatings(JSON.parse(localStorage.getItem('userData')).id);
     }
 
     render() {
         const user = this.props.profile || {};
+        const reviews = this.props.reviews || {};
         return (
             <section className={`${styles}`}>
                 <div className="container">
                     <div className="row">
                         <UserCard user={user}/>
-                        <UserProfileReviews />
+                        <UserProfileReviews reviews={reviews}/>
                     </div>
                 </div>
             </section>

@@ -178,3 +178,29 @@ function addRatingResponse(res) {
         res
     }
 }
+
+export function uploadImage(imageData) {
+    return dispatch => {
+        request.post(APIEndpoints.IMAGE_UPLOAD)
+        .set('Content-Type', 'application/json')
+        .set('Authorization', APIEndpoints.IMAGE_UPLOAD_AUTHORIZATION)
+        .send({
+            image: imageData,
+            type: 'base64'
+        })
+        .end(function(err, res) {
+            if(res.success) {
+                dispatch(uploadImageSuccess(res.data.link));
+            }else {
+                console.log(res);
+            }
+        })
+    }
+}
+
+function uploadImageSuccess(url) {
+    return {
+        type: 'IMAGE_UPLOAD_SUCCESS',
+        url
+    }
+}

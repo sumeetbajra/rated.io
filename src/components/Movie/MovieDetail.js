@@ -7,9 +7,9 @@ export class MovieDetail extends Component {
         let stars = [];
         if(movie.ratings) {
             for (let i = movie.ratings.length - 1; i >= 0; i--) {
-                rating += parseInt(movie.ratings[i].rating)
+                rating += +movie.ratings[i].rating;
             }
-            rating = Math.round(((rating/movie.ratings.length)*2)/2);
+            rating = (Math.round((rating/movie.ratings.length)*2))/2;
             rating = rating.toString();
 
             let ratings = rating.split('.');

@@ -8,6 +8,7 @@ export class Admin extends Component {
         return (
             <section>
                 <div className="container">
+                    <div id="image-upload-overlay">Uploading Image..</div>
                     <div className="row">
                         <div className="col-sm-3 admin-menu">
                             <ul className="admin-menu-list nav nav-pills nav-stacked">

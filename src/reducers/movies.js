@@ -4,7 +4,8 @@ const initialState = {
     movieData: {},
     bestMovies: [],
     latestMovies: [],
-    errorMessage: null
+    errorMessage: null,
+    imgUrl: null
 }
 
 function setError(message) {
@@ -150,6 +151,13 @@ export function movies(state = initialState, action) {
                     ...state,
                     errorMessage: action.res.message
                 }
+            }
+            break;
+
+        case 'IMAGE_UPLOAD_SUCCESS':
+            return {
+                ...state, 
+                imgUrl: action.url
             }
             break;
 

@@ -21,7 +21,7 @@ export class AddMovie extends Component {
             <div>
                 <h2>Add new movie</h2>
                 <hr />
-                <AddMovieForm addMovie={this.props.addMovie}/>
+                <AddMovieForm addMovie={this.props.addMovie} uploadImage={this.props.uploadImage}/>
             </div>
         );
     }

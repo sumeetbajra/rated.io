@@ -65,6 +65,25 @@ function getUserResponse(res) {
     }
 }
 
+export function getUserRatings(id) {
+    return dispatch => {
+        request.get(APIEndpoints.GET_USER_RATINGS + id)
+        .set('Authorization', localStorage.getItem('token'))
+        .end(function(err, res) {
+            if(!res.error) {
+                dispatch(getUserRatingsResponse(res.body));
+            }
+        })
+    }
+}
+
+function getUserRatingsResponse(res) {
+    return {
+        type: 'GET_USER_RATINGS_RESPONSE',
+        res
+    }
+}
+
 export function logout() {
     return {
         type: 'LOGOUT'

@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { createForm } from 'rc-form';
+import { APIEndpoints } from 'constants/CommonConstants';
 
 @createForm()
 export class AddMovieForm extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            poster: null,
+            cover: null
+        }
     }
 
     validateText(rule, value, callback) {
@@ -17,6 +22,38 @@ export class AddMovieForm extends Component {
         }       
     }
 
+    _fileUpload = (field, e) => {
+        var that = this;
+        var upload = document.getElementsByName(field)[0];
+        if(upload.files && upload.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(readerEvt) {
+                var binaryString = readerEvt.target.result;
+                var request = new XMLHttpRequest();
+                request.open('POST', APIEndpoints.IMAGE_UPLOAD, true);
+                request.setRequestHeader("Content-type", "application/json");
+                request.setRequestHeader('Authorization', APIEndpoints.IMAGE_UPLOAD_AUTHORIZATION);
+                request.send(JSON.stringify({
+                    image: btoa(binaryString),
+                    type: 'base64'
+                }));
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        var res = JSON.parse(request.responseText);
+                        if(res.status) {
+                            console.log(res.data.link);
+                            that.setState({
+                                [field]: res.data.link
+                            });
+                        }
+                    }
+                };
+            };
+
+            reader.readAsBinaryString(upload.files[0]);
+        }
+    }
+
     submitForm = (e) => {
         e.preventDefault();
 
@@ -24,14 +61,14 @@ export class AddMovieForm extends Component {
             if(!error) {
                this.props.addMovie({
                     title: document.getElementsByName('title')[0].value,
-                    description: document.getElementsByName('description')[0].value,
+                    description: document.getElementById('description').value,
                     year: document.getElementsByName('year')[0].value,
                     director: document.getElementsByName('director')[0].value,
                     cast: document.getElementsByName('cast')[0].value,
                     duration: document.getElementsByName('duration')[0].value,
                     trailer: document.getElementsByName('trailer')[0].value,
-                    posterUrl: document.getElementsByName('poster')[0].value,
-                    coverUrl: document.getElementsByName('cover')[0].value,
+                    posterUrl: this.state.poster,
+                    coverUrl: this.state.cover,
                     slug: document.getElementsByName('title')[0].value.split(' ').join('-') + '-' + Date.now()
                });
             }
@@ -54,6 +91,7 @@ export class AddMovieForm extends Component {
 
         return (
             <form onSubmit={this.submitForm}>
+                {/**<div className="overlay">Uploading Image</div>**/}
                 <div className="form-group">
                     <label htmlFor="title">Movie Title</label>
                     <input type="text" className="form-control" name="title" placeholder="Title" {...getFieldProps('Movie Title', {rules: [{required: true}, {validator: this.validateAlphaNumeric}]})} maxLength="60"/>
@@ -61,7 +99,7 @@ export class AddMovieForm extends Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
-                    <textarea type="text" className="form-control" name="description" placeholder="Description" rows="6" {...getFieldProps('Description', {rules: [{required: true}]})}/>
+                    <textarea type="text" id="description" className="form-control" name="description" placeholder="Description" rows="6" {...getFieldProps('Description', {rules: [{required: true}]})}/>
                     <span className="form-error">{(errors = getFieldError('Description')) ? errors.join(',') : null}</span>
                 </div>
                 
@@ -106,13 +144,13 @@ export class AddMovieForm extends Component {
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Movie Poster</label>
-                            <input type="text" className="form-control" name="poster" />
+                            <input type="file" className="form-control" name="poster" onChange={this._fileUpload.bind(this, 'poster')}/>
                         </div>
                     </div>
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Movie Cover Image</label>
-                            <input type="text" className="form-control" name="cover" />
+                            <input type="file" className="form-control" name="cover" onChange={this._fileUpload.bind(this, 'cover')}/>
                         </div>
                     </div>
                 </div>

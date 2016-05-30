@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import moment from 'moment';
 
 export class MovieReviews extends Component {
 
@@ -26,9 +27,10 @@ export class MovieReviews extends Component {
                 <div className="col-sm-12"><h4>Reviews ({this.props.ratings ? this.props.ratings.length : 0} reviews)</h4><hr />
                     {!(this.props.ratings && this.props.ratings.length) && <i>Be the first one to review</i>}
                 </div>
-                    {this.props.ratings.map((rating) => {
+                <div className="row">
+                    {this.props.ratings.map((rating, i) => {
                         return (
-                            <div className="movie-reviews__single col-sm-6">
+                            <div className="movie-reviews__single col-sm-6" style={!(i%2) ? {clear: 'both'} : null}>
                                 <div className="row">
                                     <div className="col-sm-3" style={{textAlign: 'center'}}>
                                         <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png" width="50" height="50" className="img img-circle"/><br />
@@ -41,13 +43,15 @@ export class MovieReviews extends Component {
                                             {this.renderStars(rating.rating)}
                                         </div>
                                         <div className="movie-reviews__single__review_comment">
-                                            {rating.review}                                            
+                                            {rating.review}<br/><br />   
+                                            <i>{moment(rating.timestamp).format('MMM DD, YYYY')}</i>                                         
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         )
                     })}
+                </div>
             </div>
         );
     }
