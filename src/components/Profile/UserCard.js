@@ -5,7 +5,7 @@ export class UserCard extends Component {
     render() {
         return (
             <div className="col-sm-3 user-row">
-                <img src="http://www.keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" className="img img-circle user-row__pic" width="100"/>
+                <img src="https://world-outreach.com/wp-content/uploads/2014/08/placeholder-profile-male.jpg" className="img img-circle user-row__pic" width="100"/>
                 <div className="user-row__name">{this.props.user.firstName} {this.props.user.lastName}</div>
                 <div className="user-row__username">@ {this.props.user.username}</div>
                 <div className="user-row__description">

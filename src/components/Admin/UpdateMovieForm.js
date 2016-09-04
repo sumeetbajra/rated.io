@@ -22,9 +22,20 @@ export class UpdateMovieForm extends Component {
         }       
     }
 
+    componentWillReceiveProps(nextProps) {
+        let {movie} = nextProps;
+        this.setState({
+            cover: movie.coverUrl,
+            poster: movie.posterUrl
+        })
+    }
+
     _fileUpload = (field, e) => {
         var that = this;
         var upload = document.getElementsByName(field)[0];
+        var submitBtn = document.getElementById('submit');
+        submitBtn.innerHTML = 'Uploading image...';
+        submitBtn.disabled = true;
         if(upload.files && upload.files[0]) {
             var reader = new FileReader();
             reader.onload = function(readerEvt) {
@@ -41,7 +52,8 @@ export class UpdateMovieForm extends Component {
                     if (request.readyState == 4 && request.status == 200) {
                         var res = JSON.parse(request.responseText);
                         if(res.status) {
-                            console.log(res.data.link);
+                            submitBtn.innerHTML = 'Submit';
+                            submitBtn.disabled = false;
                             that.setState({
                                 [field]: res.data.link
                             });
@@ -152,17 +164,19 @@ export class UpdateMovieForm extends Component {
                         <div className="form-group">
                             <label htmlFor="title">Movie Poster</label>
                             <input type="file" className="form-control" name="poster" onChange={this._fileUpload.bind(this, 'poster')}/>
+                            {this.state.poster && <img src={this.state.poster} className="img img-responsive" style={{height: '180px', marginTop: '10px'}}/>}
                         </div>
                     </div>
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Movie Cover Image</label>
                             <input type="file" className="form-control" name="cover" onChange={this._fileUpload.bind(this, 'cover')}/>
+                            {this.state.cover && <img src={this.state.cover} className="img img-responsive" style={{height: '180px', marginTop: '10px'}}/>}
                         </div>
                     </div>
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-default">Submit</button>
+                    <button type="submit" className="btn btn-default" id="submit">Submit</button>
                 </div>
             </form>
         );

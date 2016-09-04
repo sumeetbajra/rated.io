@@ -33,7 +33,7 @@ export class MovieReviews extends Component {
                             <div className="movie-reviews__single col-sm-6" style={!(i%2) ? {clear: 'both'} : null}>
                                 <div className="row">
                                     <div className="col-sm-3" style={{textAlign: 'center'}}>
-                                        <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png" width="50" height="50" className="img img-circle"/><br />
+                                        <img src="https://world-outreach.com/wp-content/uploads/2014/08/placeholder-profile-male.jpg" width="50" height="50" className="img img-circle"/><br />
                                         <div className="movie-reviews__single__username">
                                             {rating.userId.username}
                                         </div>
