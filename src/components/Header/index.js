@@ -32,7 +32,7 @@ export class Header extends Component {
                       <a style={{cursor: 'pointer'}} className="dropdown-toggle" data-toggle="dropdown">Welcome {JSON.parse(localStorage.getItem('userData')).firstName}
                       &nbsp;<span className="caret"></span></a>
                       <ul className="dropdown-menu right-nav__welcome__dropdown__dropdown-menu">
-                        <li><Link to={'/profile'}><i className="fa fa-user" /> Profile</Link></li>
+                        <li><Link to={'/profile/' + JSON.parse(localStorage.getItem('userData')).id }><i className="fa fa-user" /> Profile</Link></li>
                         <li><a href="#"><i className="fa fa-gear" /> Settings</a></li>
                         <li><a href="#"><i className="fa fa-lock" /> Admin</a></li>
                         <li><a href="#"><i className="fa fa-sign-out" /> Logout</a></li>

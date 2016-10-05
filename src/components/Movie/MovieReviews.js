@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router';
 
 export class MovieReviews extends Component {
 
@@ -33,9 +34,9 @@ export class MovieReviews extends Component {
                             <div className="movie-reviews__single col-sm-6" style={!(i%2) ? {clear: 'both'} : null}>
                                 <div className="row">
                                     <div className="col-sm-3" style={{textAlign: 'center'}}>
-                                        <img src="https://world-outreach.com/wp-content/uploads/2014/08/placeholder-profile-male.jpg" width="50" height="50" className="img img-circle"/><br />
+                                        <img src={rating.userId.profilePic} width="50" height="50" className="img img-circle"/><br />
                                         <div className="movie-reviews__single__username">
-                                            {rating.userId.username}
+                                            <Link to={ '/profile/' + rating.userId._id }>{rating.userId.username || rating.userId.firstName + ' ' + rating.userId.lastName}</Link>
                                         </div>
                                     </div>
                                     <div className="col-sm-9 movie-reviews__single__review">

@@ -50,7 +50,8 @@ export function users(state = initialState, action) {
                     id: action.res.res.user._id,
                     username: action.res.res.user.username, 
                     firstName: action.res.res.user.firstName, 
-                    lastName: action.res.res.user.lastName
+                    lastName: action.res.res.user.lastName,
+                    role: action.res.res.user.role
                 }));
                 location.hash = "/";
                 return {

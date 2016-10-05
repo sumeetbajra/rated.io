@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Link } from 'react-router';
 import { MovieStars } from 'components/Home/MovieStars';
 
 export class UserProfileReviews extends Component {
@@ -9,11 +10,12 @@ export class UserProfileReviews extends Component {
                 <h2 className="user-ratings-row__header">
                     User movie reviews
                 </h2>
+                {!this.props.reviews.length && <i>No reviews made</i>}
                 {this.props.reviews.map((review) => {
                     return (
                         <div>
                             {review.ratings.map((rating) => {
-                                if(rating.userId == JSON.parse(localStorage.getItem('userData')).id) {
+                                if(rating.userId == this.props.userId) {
                                     return (
                                         <div className="row user-ratings-row__movie">
                                             <div className="col-sm-2 user-ratings-row__movie__movie-detail">
@@ -21,7 +23,7 @@ export class UserProfileReviews extends Component {
                                             </div>
                                             <div className="col-sm-10 user-ratings-row__movie__movie-rating">
                                                 <div className="user-ratings-row__movie__movie-rating__name">
-                                                    {review.title} ({review.year})
+                                                    <Link to={'/movie/' + review._id}>{review.title} ({review.year})</Link>
                                                 </div>
                                                 <div className="user-ratings-row__movie__movie-rating__stars">
                                                     <MovieStars ratings={rating.rating} />

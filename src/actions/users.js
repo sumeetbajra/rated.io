@@ -6,7 +6,7 @@ function registerSuccess(res) {
     if(!res.error)
         toastr.success('Success', 'You have been registered successfully. Please sign in.');
     return {
-        type: 'ADD_USER',
+        type: 'LOGIN_USER',
         res
     }
 }

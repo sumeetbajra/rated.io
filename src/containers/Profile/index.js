@@ -15,8 +15,16 @@ import { styles } from './style.scss';
 export class Profile extends Component {
 
     componentDidMount() {
-        this.props.getUser(JSON.parse(localStorage.getItem('userData')).id);
-        this.props.getUserRatings(JSON.parse(localStorage.getItem('userData')).id);
+        this.props.getUser(this.props.params.id);
+        this.props.getUserRatings(this.props.params.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.params.id != this.props.params.id) {
+            this.props.params.id = nextProps.params.id;
+            this.props.getUser(nextProps.params.id);
+            this.props.getUserRatings(nextProps.params.id);
+        }
     }
 
     render() {
@@ -26,8 +34,8 @@ export class Profile extends Component {
             <section className={`${styles}`}>
                 <div className="container">
                     <div className="row">
-                        <UserCard user={user}/>
-                        <UserProfileReviews reviews={reviews}/>
+                        <UserCard user={user} ownProfile={this.props.params.id == JSON.parse(localStorage.getItem('userData')).id}/>
+                        <UserProfileReviews reviews={reviews} userId={this.props.params.id}/>
                     </div>
                 </div>
             </section>
