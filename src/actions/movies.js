@@ -179,6 +179,27 @@ function addRatingResponse(res) {
     }
 }
 
+export function updateRating(id, payload) {
+    return dispatch => {
+        request.put(APIEndpoints.UPDATE_RATING + id)
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('token'))
+        .send(payload)
+        .end(function(err, res) {
+            if(!res.error) {
+                dispatch(updateRatingResponse(res.body));
+            }
+        })
+    }
+}
+
+function updateRatingResponse(res) {
+    return {
+        type: 'UPDATE_RATING_RESPONSE',
+        res
+    }
+}
+
 export function uploadImage(imageData) {
     return dispatch => {
         request.post(APIEndpoints.IMAGE_UPLOAD)

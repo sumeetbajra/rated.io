@@ -8,6 +8,7 @@ export const APIEndpoints = {
     BEST_MOVIES: serverUrl + 'movies/best',
     GET_USER: serverUrl + 'users/',
     ADD_RATING: serverUrl + 'ratings/add/',
+    UPDATE_RATING: serverUrl + 'ratings/update/',
     GET_USER_RATINGS: serverUrl + 'users/ratings/',
 
     IMAGE_UPLOAD: 'https://api.imgur.com/3/image',

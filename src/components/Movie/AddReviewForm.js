@@ -8,6 +8,16 @@ export class AddReviewForm extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        var stars = this.props.myRating.length ? this.props.myRating[0].rating : 0;
+        var splitStars = stars.toString().split('.');
+        if(splitStars.length == 1) {
+            document.getElementById('star' + splitStars[0]).click();
+        }else {
+            document.getElementById('star' + splitStars[0] + 'half').click();
+        }
+    }
+
     removeThisModal = () => {
         this.props.removeModal();
     }
@@ -18,15 +28,21 @@ export class AddReviewForm extends Component {
             rating: document.querySelector('input[name="rating"]:checked').value,
             userId: JSON.parse(localStorage.getItem('userData')).id
         }
-        this.props.addRating(this.props.movieId, payload);
+        if(this.props.myRating.length) {
+            this.props.updateRating(this.props.movieId, payload);
+        }else {
+            this.props.addRating(this.props.movieId, payload);
+        }
         this.removeThisModal();
     }
 
     render() {
+        var myRating = this.props.myRating.length ? this.props.myRating[0] : {};
         return (
             <div>
+                {this.props.myRating.length != 0 && <small><i>You have already rated the movie. You can edit your ratings below.</i></small>}
                 <ReviewStarsInput />
-                <textarea style={{resize: 'none'}} rows="5" className="form-control" placeholder="Type your movie review"/><br />
+                <textarea style={{resize: 'none'}} rows="5" className="form-control" placeholder="Type your movie review" defaultValue={myRating.review}/><br />
                 <button className="btn btn-primary" onClick={this.addMovieReview}>Submit</button>&nbsp;
                 <button className="btn btn-danger" onClick={this.removeThisModal}>Close</button>
             </div>

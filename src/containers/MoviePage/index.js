@@ -8,6 +8,7 @@ import { MovieDetail } from 'components/Movie/MovieDetail';
 import { MovieReviews } from 'components/Movie/MovieReviews';
 import { MovieImg } from 'components/Movie/MovieImg';
 import { AddReviewForm } from 'components/Movie/AddReviewForm';
+import { MovieTrailerModal } from 'components/Movie/MovieTrailerModal';
 
 import * as actionCreators from 'actions/movies';
 
@@ -34,7 +35,19 @@ export class MoviePage extends Component {
             closeOnOutsideClick: false, // (optional) Switch to true if you want to close the modal by clicking outside of it,
             hideCloseButton: false, // (optional) if you don't wanna show the top right close button
             movieId: this.props.params.id,
-            addRating: this.props.addRating
+            addRating: this.props.addRating,
+            updateRating: this.props.updateRating,
+            myRating: this.props.movieData.ratings.filter(rating => rating.userId._id == JSON.parse(localStorage.getItem('userData')).id)
+            //.. all what you put in here you will get access in the modal props ;)
+        });
+    }
+
+    openTrailerModal = (url, e) => {
+        modal.add(MovieTrailerModal, {
+            size: 'large', // large, medium or small,
+            closeOnOutsideClick: true, // (optional) Switch to true if you want to close the modal by clicking outside of it,
+            hideCloseButton: false, // (optional) if you don't wanna show the top right close button
+            url: url,
             //.. all what you put in here you will get access in the modal props ;)
         });
     }
@@ -48,7 +61,7 @@ export class MoviePage extends Component {
                 <MovieCover img={movie.coverUrl}/>
                 <div className="container">
                     <div className="row" style={{marginTop: '-20px'}}>
-                        <MovieImg img={movie.posterUrl} addReviewModal={this.openReviewModal}/>
+                        <MovieImg img={movie.posterUrl} addReviewModal={this.openReviewModal} playTrailer={this.openTrailerModal.bind(this, movie.trailer)}/>
                         <div className="col-sm-9">
                             <MovieDetail data={movie}/>
                             <MovieReviews ratings={ratings}/>

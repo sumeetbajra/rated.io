@@ -154,6 +154,21 @@ export function movies(state = initialState, action) {
             }
             break;
 
+        case 'UPDATE_RATING_RESPONSE':
+            if(!action.res.error) {
+                return {
+                    ...state,
+                    movieData: action.res.res
+                }
+                return state;                    
+            }else {
+                return {
+                    ...state,
+                    errorMessage: action.res.message
+                }
+            }
+            break;
+
         case 'IMAGE_UPLOAD_SUCCESS':
             return {
                 ...state, 
