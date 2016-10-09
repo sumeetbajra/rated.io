@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { createForm } from 'rc-form';
 import { APIEndpoints } from 'constants/CommonConstants';
 
+import { SearchCelebrity } from './SearchCelebrity';
+
 @createForm()
 export class UpdateMovieForm extends Component {
 
@@ -9,7 +11,11 @@ export class UpdateMovieForm extends Component {
         super(props);
         this.state = {
             cover: null,
-            poster: null
+            poster: null,
+            directorsIds: [],
+            directors: [],
+            castsIds: [],
+            casts: []
         }
     }
 
@@ -26,7 +32,7 @@ export class UpdateMovieForm extends Component {
         let {movie} = nextProps;
         this.setState({
             cover: movie.coverUrl,
-            poster: movie.posterUrl
+            poster: movie.posterUrl,
         })
     }
 
@@ -63,6 +69,15 @@ export class UpdateMovieForm extends Component {
             };
 
             reader.readAsBinaryString(upload.files[0]);
+        }
+    }
+
+    addCelebrity = (field, value) => {
+        if(this.state[field + 'Ids'].indexOf(value) == -1) {
+            this.setState({
+                [field]: this.state[field].concat(value),
+                [field + 'Ids']: this.state[field + 'Ids'].concat({celebrityId: value._id})
+            })
         }
     }
 
@@ -133,15 +148,23 @@ export class UpdateMovieForm extends Component {
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Director</label>
-                            <input type="text" className="form-control" name="director" placeholder="Director of the movie" {...getFieldProps('Movie Director', {initialValue: movie.director, rules: [{required: true}, {validator: this.validateText}]})}/>
-                            <span className="form-error">{(errors = getFieldError('Movie Director')) ? errors.join(',') : null}</span>
+                            <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'directors')}/>
+                            <div className="celebrity-tag">
+                                {this.state.directors.map((director) => {
+                                    return <span key={director._id} className="celebrity-tag__item">{director.fullName}</span>
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="title">Cast</label>
-                    <input type="text" className="form-control" name="cast" placeholder="List of cast" {...getFieldProps('Cast', {initialValue: movie.cast, rules: [{required: true}]})}/>
-                    <span className="form-error">{(errors = getFieldError('Cast')) ? errors.join(',') : null}</span>
+                    <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
+                    <div className="celebrity-tag">
+                        {this.state.casts.map((cast) => {
+                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName}</span>
+                        })}
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-sm-6">

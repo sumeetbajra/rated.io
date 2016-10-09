@@ -12,7 +12,9 @@ export const APIEndpoints = {
     GET_USER_RATINGS: serverUrl + 'users/ratings/',
 
     IMAGE_UPLOAD: 'https://api.imgur.com/3/image',
-    IMAGE_UPLOAD_AUTHORIZATION: 'Client-ID 931b184cacc4b7d'
+    IMAGE_UPLOAD_AUTHORIZATION: 'Client-ID 931b184cacc4b7d',
+
+    SEARCH_CELEBRITY: serverUrl + 'celebrity/search/'
 
 
 }

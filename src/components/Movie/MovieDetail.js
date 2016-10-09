@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export class MovieDetail extends Component {
     render() {
@@ -31,8 +32,12 @@ export class MovieDetail extends Component {
                     &nbsp;({movie.ratings ? movie.ratings.length : 0} reviews)
                     <br />
                     {movie.duration} mins - Action | Fiction | SciFi<br />
-                    Director: {movie.director}<br />
-                    Cast: {movie.cast}
+                    <b>Director:</b> {movie.director && movie.director.map((director, i) => {
+                                return <span><Link to={'/celebrity/' + director.celebrityId._id}>{director.celebrityId.fullName}</Link>{i+1 != movie.director.length && <span>,</span>} </span>
+                            })}<br />
+                    <b>Cast:</b> {movie.cast && movie.cast.map((cast, i) => {
+                                return <span><Link to={'/celebrity/' + cast.celebrityId._id}>{cast.celebrityId.fullName}</Link>{i+1 != movie.cast.length && <span>,</span>} </span>
+                            })}<br />
                 </div>
                 <div className="movie-desc">
                     {movie.description}

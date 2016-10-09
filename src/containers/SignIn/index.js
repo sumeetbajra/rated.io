@@ -51,16 +51,17 @@ export class SignIn extends Component {
                                 <div className="panel-heading">Login</div>
                                 <div className="panel-body">
                                     <div className="alert alert-danger">{this.props.errorMessage}</div>
-                                    <SignInForm {...this.props} />
-                                    <FacebookLogin socialId="1619673508300494"
+                                     <FacebookLogin socialId="1619673508300494"
                                        language="en_US"
                                        scope="public_profile,email"
                                        fields="first_name,gender,last_name,email,picture.width(150).height(150)"
                                        responseHandler={this.responseFacebook}
                                        xfbml={true}
                                        version="v2.5"
-                                       class="facebook-login"
+                                       class="btn btn-block facebook-login"
                                        buttonText="Login With Facebook"/>
+                                       <div className="text-center"><b>OR</b></div>
+                                    <SignInForm {...this.props} />
                                 </div>
                             </div>
                         </div>

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { createForm } from 'rc-form';
 import { APIEndpoints } from 'constants/CommonConstants';
 
+import { SearchCelebrity } from './SearchCelebrity';
+
 @createForm()
 export class AddMovieForm extends Component {
 
@@ -9,7 +11,11 @@ export class AddMovieForm extends Component {
         super(props);
         this.state = {
             poster: null,
-            cover: null
+            cover: null,
+            directorsIds: [],
+            directors: [],
+            castsIds: [],
+            casts: []
         }
     }
 
@@ -58,6 +64,15 @@ export class AddMovieForm extends Component {
         }
     }
 
+    addCelebrity = (field, value) => {
+        if(this.state[field + 'Ids'].indexOf(value) == -1) {
+            this.setState({
+                [field]: this.state[field].concat(value),
+                [field + 'Ids']: this.state[field + 'Ids'].concat({celebrityId: value._id})
+            })
+        }
+    }
+
     submitForm = (e) => {
         e.preventDefault();
 
@@ -67,8 +82,8 @@ export class AddMovieForm extends Component {
                     title: document.getElementsByName('title')[0].value,
                     description: document.getElementById('description').value,
                     year: document.getElementsByName('year')[0].value,
-                    director: document.getElementsByName('director')[0].value,
-                    cast: document.getElementsByName('cast')[0].value,
+                    director: this.state.directorsIds,
+                    cast: this.state.castsIds,
                     duration: document.getElementsByName('duration')[0].value,
                     trailer: document.getElementsByName('trailer')[0].value,
                     posterUrl: this.state.poster,
@@ -92,7 +107,7 @@ export class AddMovieForm extends Component {
 
         let errors;
         const {getFieldProps, getFieldError} = this.props.form;
-
+       
         return (
             <form onSubmit={this.submitForm}>
                 <div className="form-group">
@@ -117,15 +132,27 @@ export class AddMovieForm extends Component {
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Director</label>
-                            <input type="text" className="form-control" name="director" placeholder="Director of the movie" {...getFieldProps('Movie Director', {rules: [{required: true}, {validator: this.validateText}]})}/>
-                            <span className="form-error">{(errors = getFieldError('Movie Director')) ? errors.join(',') : null}</span>
+                            <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'directors')}/>
+                            <div className="celebrity-tag">
+                                {this.state.directors.map((director) => {
+                                    return <span key={director._id} className="celebrity-tag__item">{director.fullName}</span>
+                                })}
+                            </div>
+                            {/**<input type="text" className="form-control" name="director" placeholder="Director of the movie" {...getFieldProps('Movie Director', {rules: [{required: true}, {validator: this.validateText}]})}/>**/}
+                            {/**<span className="form-error">{(errors = getFieldError('Movie Director')) ? errors.join(',') : null}</span>**/}
                         </div>
                     </div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="title">Cast</label>
-                    <input type="text" className="form-control" name="cast" placeholder="List of cast" {...getFieldProps('Cast', {rules: [{required: true}]})}/>
-                    <span className="form-error">{(errors = getFieldError('Cast')) ? errors.join(',') : null}</span>
+                    <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
+                    <div className="celebrity-tag">
+                        {this.state.casts.map((cast) => {
+                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName}</span>
+                        })}
+                    </div>
+                    {/**<input type="text" className="form-control" name="cast" placeholder="List of cast" {...getFieldProps('Cast', {rules: [{required: true}]})}/>**/}
+                    {/**<span className="form-error">{(errors = getFieldError('Cast')) ? errors.join(',') : null}</span>**/}
                 </div>
                 <div className="row">
                     <div className="col-sm-6">

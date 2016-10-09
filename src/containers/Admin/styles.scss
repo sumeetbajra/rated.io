@@ -10,4 +10,36 @@
     table {
         font-size: 14px;
     }
+
+    .react-autosuggest__suggestions-container {
+    	border: solid thin #ccc;
+    	border-top: none;
+    	border-bottom: none;
+    	position: absolute;
+    	background: white;
+    	width: 80%;
+    	z-index: 2;
+    }
+
+    .react-autosuggest__suggestions-list {
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	}
+
+	.react-autosuggest__suggestion {
+		padding: 17px;
+		border-bottom: solid thin #ccc;
+	}
+
+	.celebrity-tag {
+		margin: 20px 0;
+
+		.celebrity-tag__item {
+		    background: #ECECEC;
+		    padding: 10px;
+		    border-radius: 8px;
+		    margin-right: 4px;
+		}
+	}
 }

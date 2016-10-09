@@ -14,7 +14,11 @@ export class AddReviewForm extends Component {
         if(splitStars.length == 1) {
             document.getElementById('star' + splitStars[0]).click();
         }else {
-            document.getElementById('star' + splitStars[0] + 'half').click();
+            if(splitStars[0] == 0) {
+                document.getElementById('starhalf').click();
+            }else {
+                document.getElementById('star' + splitStars[0] + 'half').click();
+            }
         }
     }
 
