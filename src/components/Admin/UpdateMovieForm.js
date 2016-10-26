@@ -33,6 +33,10 @@ export class UpdateMovieForm extends Component {
         this.setState({
             cover: movie.coverUrl,
             poster: movie.posterUrl,
+            casts: movie.cast,
+            castsIds: movie.cast.map((cast) => { return {celebrityId: cast.celebrityId._id}}),
+            directors: movie.director,
+            directorsIds: movie.director.map((cast) => { return {celebrityId: cast.celebrityId._id}}),
         })
     }
 
@@ -90,8 +94,8 @@ export class UpdateMovieForm extends Component {
                     title: document.getElementsByName('title')[0].value,
                     description: document.getElementById('description').value,
                     year: document.getElementsByName('year')[0].value,
-                    director: document.getElementsByName('director')[0].value,
-                    cast: document.getElementsByName('cast')[0].value,
+                    director: this.state.directorsIds,
+                    cast: this.state.castsIds,
                     duration: document.getElementsByName('duration')[0].value,
                     trailer: document.getElementsByName('trailer')[0].value,
                     posterUrl: this.state.poster,
@@ -151,7 +155,7 @@ export class UpdateMovieForm extends Component {
                             <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'directors')}/>
                             <div className="celebrity-tag">
                                 {this.state.directors.map((director) => {
-                                    return <span key={director._id} className="celebrity-tag__item">{director.fullName}</span>
+                                    return <span key={director._id} className="celebrity-tag__item">{director.fullName || director.celebrityId.fullName}</span>
                                 })}
                             </div>
                         </div>
@@ -162,7 +166,7 @@ export class UpdateMovieForm extends Component {
                     <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
                     <div className="celebrity-tag">
                         {this.state.casts.map((cast) => {
-                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName}</span>
+                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName || cast.celebrityId.fullName}</span>
                         })}
                     </div>
                 </div>
