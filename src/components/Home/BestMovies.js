@@ -17,17 +17,11 @@ export class BestMovies extends Component {
         return (
             <section id="best-movies" className={`${styles}`}>
                 <div className="container">
-                    <h2>Best Movies this week</h2>
+                    <h2 className="main-title">Best Movies this week</h2>
                     <div className="row">
                         <Slider {...settings}>
                             {this.props.movies && this.props.movies.map((movie) => {
-                               let rating = 0;
-                                if(movie.ratings) {
-                                    for (let i = movie.ratings.length - 1; i >= 0; i--) {
-                                        rating += +movie.ratings[i].rating;
-                                    }
-                                    rating = Math.round((rating/movie.ratings.length)*2)/2;
-                                }
+                               let rating = Math.round((movie.overallRating)*2)/2;
                                 return (
                                     <div className="col-sm-2" key={movie._id}>
                                         <Link to={'/movie/' + movie._id}>
@@ -39,7 +33,7 @@ export class BestMovies extends Component {
                                             </span>
                                             <span className="movie-details__rating">
                                                 <MovieStars ratings={rating} />
-                                                {rating ? <div>{rating}/5 ({movie.ratings.length} reviews)</div> : 'No reviews yet'}
+                                                {rating ? <div>{rating}/5 ({movie.ratingsCount} reviews)</div> : 'No reviews yet'}
                                             </span>
                                         </div>
                                     </div>

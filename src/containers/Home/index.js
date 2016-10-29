@@ -41,7 +41,7 @@ export class Home extends Component {
     return (
       <section>
         <DocumentMeta {...metaData} />
-        <TopImage />
+        {/**<TopImage />**/}
         <LatestMovies movies={this.props.latestMovies}/>
         <BestMovies movies={this.props.bestMovies}/>
       </section>

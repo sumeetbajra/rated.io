@@ -22,10 +22,22 @@ export class MoviePage extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            loading: false
+        }
     }
 
-    componentDidMount = () => {
-        this.props.getMovie(this.props.params.id)
+    componentWillMount = () => {
+        this.props.getMovie(this.props.params.id);
+        this.setState({
+            loading: true
+        })
+    }
+
+    componentWillReceiveProps() {
+        this.setState({
+            loading: false
+        })
     }
 
     openReviewModal = () => {
@@ -57,6 +69,7 @@ export class MoviePage extends Component {
         let movie = this.props.movieData ? this.props.movieData : {};
         let ratings = movie.ratings ? movie.ratings : [];
         return (
+            this.state.loading ? <span>Loading</span> : 
              <section>
                 <MovieCover img={movie.coverUrl}/>
                 <div className="container">

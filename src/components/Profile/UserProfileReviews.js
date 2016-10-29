@@ -7,7 +7,7 @@ export class UserProfileReviews extends Component {
     render() {
         return (
             <div className="col-sm-9 user-ratings-row">
-                <h2 className="user-ratings-row__header">
+                <h2 className="section-title">
                     User movie reviews
                 </h2>
                 {!this.props.reviews.length && <i>No reviews made</i>}

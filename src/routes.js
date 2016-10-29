@@ -7,6 +7,7 @@ import { Home } from 'containers/Home';
 import { Register } from 'containers/Register';
 import { SignIn } from 'containers/SignIn';
 import { MoviePage } from 'containers/MoviePage';
+import { CelebrityPage } from 'containers/CelebrityPage';
 import { Profile } from 'containers/Profile';
 import { Admin } from 'containers/Admin';
 import { AddMovie } from 'containers/Admin/AddMovie';
@@ -23,6 +24,7 @@ export default (
     <Route path="register" component={Register} />
     <Route path="sign-in" component={SignIn} />
     <Route path="movie/:id" component={MoviePage} />
+    <Route path="celebrity/:id" component={CelebrityPage} />
     <Route path="profile/:id" component={Profile} />
     <Route path="admin" component={Admin}>
         <Route path="add-movie" component={AddMovie} />

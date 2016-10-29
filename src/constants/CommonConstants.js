@@ -14,7 +14,10 @@ export const APIEndpoints = {
     IMAGE_UPLOAD: 'https://api.imgur.com/3/image',
     IMAGE_UPLOAD_AUTHORIZATION: 'Client-ID 931b184cacc4b7d',
 
-    SEARCH_CELEBRITY: serverUrl + 'celebrity/search/'
+    SEARCH_CELEBRITY: serverUrl + 'celebrity/search/',
+    GET_CELEBRITY: serverUrl + 'celebrity/',
+    GET_CELEBRITY_RATED_MOVIES: serverUrl + 'celebrity/movies/rated/',
+    GET_CELEBRITY_MOVIES: serverUrl + 'celebrity/movies/',
 
 
 }
