@@ -11,6 +11,13 @@
         font-size: 14px;
     }
 
+    thead tr td {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #828282;
+    }
+
     .react-autosuggest__suggestions-container {
     	border: solid thin #ccc;
     	border-top: none;

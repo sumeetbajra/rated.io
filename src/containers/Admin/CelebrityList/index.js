@@ -1,18 +1,22 @@
+/**
+ * Created by sumit on 10/30/16.
+ */
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-import { createForm } from 'rc-form';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { MoviesTable } from 'components/Admin/MoviesTable';
-
-import * as actionCreators from 'actions/movies';
+import { CelebritiesTable } from 'components/Admin/CelebritiesTable';
+import { getCelebrityList } from 'actions/celebrities';
 
 @connect(
-    state => state.movies,
-    dispatch => bindActionCreators(actionCreators, dispatch)
+    state => {
+        return {
+            celebrities: state.celebrities.allCelebrities
+        }
+    },
+    dispatch => bindActionCreators({ getCelebrityList }, dispatch)
 )
-export class MovieList extends Component {
+export class CelebrityList extends Component {
 
     constructor(props) {
         super(props);
@@ -21,8 +25,9 @@ export class MovieList extends Component {
         }
     }
 
-    componentDidMount = () => {
-        this.props.getAllMovies(this.state.pageNumber);
+    componentWillMount() {
+        this.props.getCelebrityList(this.state.pageNumber);
+
         var that = this;
 
         document.addEventListener('scroll', function (event) {
@@ -32,23 +37,22 @@ export class MovieList extends Component {
                 that.paginate();
             }
         });
-    };
+    }
 
     paginate = () => {
         this.setState({
             pageNumber: this.state.pageNumber + 1
         });
-
-        this.props.getAllMovies(this.state.pageNumber);
-    }
+        this.props.getCelebrityList(this.state.pageNumber);
+    };
 
     render() {
         return (
             <div>
-                <h2>Movie List</h2>
+                <h2>Manage Celebrities</h2>
                 <hr />
-                <MoviesTable movies={this.props.movies} />
+                <CelebritiesTable celebrities={this.props.celebrities} />
             </div>
-        )
+        );
     }
 }

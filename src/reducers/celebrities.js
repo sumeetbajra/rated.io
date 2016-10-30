@@ -1,7 +1,8 @@
 const initialState = {
 	celebrity: {},
 	ratedMovies: {},
-	allMovies: {}
+	allMovies: {},
+	allCelebrities: []
 };
 
 export function celebrities(state=initialState, action) {
@@ -33,6 +34,14 @@ export function celebrities(state=initialState, action) {
 				}
 			}
 			break;
+
+		case 'GET_CELEBRITY_LIST_RESPONSE':
+			if(!action.res.error) {
+				return {
+					...state,
+					allCelebrities: state.allCelebrities.concat(action.res.res.docs)
+				}
+			}
 
 		default:
 			return state;

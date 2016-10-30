@@ -62,7 +62,7 @@ export class AddMovieForm extends Component {
 
             reader.readAsBinaryString(upload.files[0]);
         }
-    }
+    };
 
     addCelebrity = (field, value) => {
         if(this.state[field + 'Ids'].indexOf(value) == -1) {
@@ -71,7 +71,7 @@ export class AddMovieForm extends Component {
                 [field + 'Ids']: this.state[field + 'Ids'].concat({celebrityId: value._id})
             })
         }
-    }
+    };
 
     submitForm = (e) => {
         e.preventDefault();
@@ -92,7 +92,7 @@ export class AddMovieForm extends Component {
                });
             }
         });
-    }
+    };
 
     validateAlphaNumeric(rule, value, callback) {
         var re = /^[a-z0-9A-Z :()]*$/;
@@ -109,18 +109,25 @@ export class AddMovieForm extends Component {
         const {getFieldProps, getFieldError} = this.props.form;
        
         return (
-            <form onSubmit={this.submitForm}>
-                <div className="form-group">
-                    <label htmlFor="title">Movie Title</label>
-                    <input type="text" className="form-control" name="title" placeholder="Title" {...getFieldProps('Movie Title', {rules: [{required: true}, {validator: this.validateAlphaNumeric}]})} maxLength="60"/>
-                    <span className="form-error">{(errors = getFieldError('Movie Title')) ? errors.join(',') : null}</span>
+            <form onSubmit={this.submitForm} className="row">
+                <div className="row">
+                    <div className="col-sm-12">
+                        <div className="form-group">
+                            <label htmlFor="title">Movie Title</label>
+                            <input type="text" className="form-control" name="title" placeholder="Title" {...getFieldProps('Movie Title', {rules: [{required: true}, {validator: this.validateAlphaNumeric}]})} maxLength="60"/>
+                            <span className="form-error">{(errors = getFieldError('Movie Title')) ? errors.join(',') : null}</span>
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <textarea type="text" id="description" className="form-control" name="description" placeholder="Description" rows="6" {...getFieldProps('Description', {rules: [{required: true}]})}/>
-                    <span className="form-error">{(errors = getFieldError('Description')) ? errors.join(',') : null}</span>
+                <div className="row">
+                    <div className="col-sm-12">
+                        <div className="form-group">
+                            <label htmlFor="description">Description</label>
+                            <textarea type="text" id="description" className="form-control" name="description" placeholder="Description" rows="6" {...getFieldProps('Description', {rules: [{required: true}]})}/>
+                            <span className="form-error">{(errors = getFieldError('Description')) ? errors.join(',') : null}</span>
+                        </div>
+                    </div>
                 </div>
-                
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="form-group">
@@ -143,16 +150,20 @@ export class AddMovieForm extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="title">Cast</label>
-                    <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
-                    <div className="celebrity-tag">
-                        {this.state.casts.map((cast) => {
-                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName}</span>
-                        })}
+                <div className="row">
+                    <div className="col-sm-12">
+                        <div className="form-group">
+                            <label htmlFor="title">Cast</label>
+                            <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
+                            <div className="celebrity-tag">
+                                {this.state.casts.map((cast) => {
+                                    return <span key={cast._id} className="celebrity-tag__item">{cast.fullName}</span>
+                                })}
+                            </div>
+                            {/**<input type="text" className="form-control" name="cast" placeholder="List of cast" {...getFieldProps('Cast', {rules: [{required: true}]})}/>**/}
+                            {/**<span className="form-error">{(errors = getFieldError('Cast')) ? errors.join(',') : null}</span>**/}
+                        </div>
                     </div>
-                    {/**<input type="text" className="form-control" name="cast" placeholder="List of cast" {...getFieldProps('Cast', {rules: [{required: true}]})}/>**/}
-                    {/**<span className="form-error">{(errors = getFieldError('Cast')) ? errors.join(',') : null}</span>**/}
                 </div>
                 <div className="row">
                     <div className="col-sm-6">
@@ -186,8 +197,12 @@ export class AddMovieForm extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="form-group">
-                    <button type="submit" className="btn btn-default" id="submit">Submit</button>
+                <div className="row">
+                    <div className="col-sm-12">
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-default" id="submit">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         );

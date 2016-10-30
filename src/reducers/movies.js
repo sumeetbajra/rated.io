@@ -51,7 +51,8 @@ export function movies(state = initialState, action) {
         case 'GET_ALL_MOVIES':
             if(!action.res.error) {
                 return {
-                    movies: action.res.res
+                    ...state,
+                    movies: state.movies.concat(action.res.res.docs)
                 }
             }else {
                 return {

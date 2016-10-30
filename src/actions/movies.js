@@ -53,9 +53,9 @@ export function addMovie(payload) {
     }
 }
 
-export function getAllMovies() {
+export function getAllMovies(page=1) {
     return dispatch => {
-        request.get(APIEndpoints.MOVIES)
+        request.get(APIEndpoints.ALL_MOVIES + page)
         .set('authorization', localStorage.getItem('token'))
         .end(function(err, res) {
             if(!res.error) {

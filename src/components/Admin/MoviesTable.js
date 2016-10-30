@@ -6,16 +6,13 @@ export class MoviesTable extends Component {
     deleteMovie = (id, e) => {
         e.preventDefault();
         this.props.deleteMovie(id)
-    }
+    };
 
     render() {
         return (
-            <table className="table table-responsive table-striped table-bordered">
+            <table className="table table-responsive">
                 <thead>
                     <tr>                    
-                        <td>
-                            Poster
-                        </td>
                         <td>
                             Title
                         </td>
@@ -34,15 +31,21 @@ export class MoviesTable extends Component {
                     {this.props.movies.map((movie) => {
                         return (
                             <tr key={movie._id}>
-                                <td><img src={movie.posterUrl} width="200"/></td>
                                 <td>{movie.title} ({movie.year})</td>
                                 <td>{movie.director.map((director) => {
-                                    return <li>{director.fullName || director.celebrityId.fullName}</li>
+                                    return <div>{director.fullName || director.celebrityId.fullName}</div>
                                 })}</td>
                                  <td>{movie.cast.map((cast) => {
-                                    return <li>{cast.fullName || cast.celebrityId.fullName}</li>
+                                    return <div>{cast.fullName || cast.celebrityId.fullName}</div>
                                 })}</td>
-                                <td><Link to={'/admin/update-movie/' + movie._id}>Edit</Link> <a href="#" onClick={this.deleteMovie.bind(this, movie._id)}>Delete</a></td>
+                                <td>
+                                    <Link to={'/admin/update-movie/' + movie._id} className="btn btn-primary btn-sm">
+                                        <i className="fa fa-pencil" />
+                                    </Link>&nbsp;
+                                    <a href="#" onClick={this.deleteMovie.bind(this, movie._id)} className="btn btn-danger btn-sm">
+                                        <i className="fa fa-trash" />
+                                    </a>
+                                </td>
                             </tr>
                         );
                     })}

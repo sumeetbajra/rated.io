@@ -1,6 +1,27 @@
 import request from 'superagent';
 import { APIEndpoints } from 'constants/CommonConstants';
 
+export function getCelebrityList(page) {
+	return dispatch => {
+		request.get(APIEndpoints.GET_CELERITY_LIST + page)
+			.set('Content-Type', 'application/json')
+			.set('Authorization', localStorage.getItem('token'))
+			.end(function(err, res) {
+				if(!res.error) {
+					dispatch(getCelebrityListResponse(res.body));
+				}
+			});
+	}
+}
+
+function getCelebrityListResponse(res) {
+	return {
+		type: 'GET_CELEBRITY_LIST_RESPONSE',
+		res
+	}
+}
+
+
 export function getCelebrity(id) {
 	return dispatch => {
 		request.get(APIEndpoints.GET_CELEBRITY + id)

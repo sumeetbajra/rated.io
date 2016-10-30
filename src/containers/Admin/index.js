@@ -36,7 +36,7 @@ export class Admin extends Component {
                                         <div id="celebrities-dropdown" className="panel-collapse collapse">
                                             <div className="panel-body">
                                                 <ul className="nav navbar-nav">
-                                                    <li><Link to={'/admin/list'}><i className="fa fa-list"></i> List Celebrities</Link></li>
+                                                    <li><Link to={'/admin/celebrity-list'}><i className="fa fa-list"></i> List Celebrities</Link></li>
                                                     <li><Link to={'/admin/add-movie'}><i className="fa fa-plus"></i> Add New Celebrity</Link></li>
                                                 </ul>
                                             </div>
@@ -48,7 +48,6 @@ export class Admin extends Component {
                                 </ul>
                             </div>
                         </nav>
-
                     </div>
 
                     <div className="container-fluid">
@@ -56,17 +55,6 @@ export class Admin extends Component {
                             {this.props.children}
                         </div>
                     </div>
-
-                    {/**<div className="col-sm-3 admin-menu">
-                     <ul className="admin-menu-list nav nav-pills nav-stacked">
-                     <li><Link to={'/admin'}>Dashboard</Link></li>
-                     <li><Link to={'/admin/list'}>List movies</Link></li>
-                     <li><Link to={'/admin/add-movie'}>Add movie</Link></li>
-                     </ul>
-                     </div>
-                     <div className="col-sm-9 admin-section">
-                     {this.props.children}
-                     </div>**/}
                 </div>
 
             </section>

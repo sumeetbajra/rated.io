@@ -19,7 +19,11 @@ export class AddMovie extends Component {
 
         return (
             <div>
-                <h2>Add new movie</h2>
+                <div className="row">
+                    <div className="col-sm-12">
+                        <h2>Add new movie</h2>
+                    </div>
+                </div>
                 <hr />
                 <AddMovieForm addMovie={this.props.addMovie} uploadImage={this.props.uploadImage}/>
             </div>
