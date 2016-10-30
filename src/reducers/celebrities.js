@@ -42,6 +42,14 @@ export function celebrities(state=initialState, action) {
 					allCelebrities: state.allCelebrities.concat(action.res.res.docs)
 				}
 			}
+			break;
+
+		case 'RESET_CELEBRITY_LIST':
+			return {
+				...state,
+				allCelebrities: []
+			};
+			break;
 
 		default:
 			return state;

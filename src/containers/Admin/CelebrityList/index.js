@@ -7,44 +7,64 @@ import { connect } from 'react-redux';
 
 import { CelebritiesTable } from 'components/Admin/CelebritiesTable';
 import { getCelebrityList } from 'actions/celebrities';
+import { resetCelebrityList } from 'actions/celebrities';
 
 @connect(
     state => {
         return {
-            celebrities: state.celebrities.allCelebrities
+            celebrities: state.celebrities.allCelebrities,
         }
     },
-    dispatch => bindActionCreators({ getCelebrityList }, dispatch)
+    dispatch => {
+        return {
+            getCelebrityList: bindActionCreators(getCelebrityList, dispatch),
+            resetCelebrityList: bindActionCreators(resetCelebrityList, dispatch)
+        }
+    }
 )
 export class CelebrityList extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            pageNumber: 1
+            pageNumber: 1,
+            loading: false
         }
     }
 
     componentWillMount() {
         this.props.getCelebrityList(this.state.pageNumber);
+        document.addEventListener('scroll', this.scrollPaginate);
+    }
 
-        var that = this;
+    scrollPaginate = (event) => {
+        if (document.body.scrollHeight <
+            document.body.scrollTop +
+            window.innerHeight + 200 && !this.state.loading) {
+            this.paginate();
+        }
+    }
 
-        document.addEventListener('scroll', function (event) {
-            if (document.body.scrollHeight <
-                document.body.scrollTop +
-                window.innerHeight + 200) {
-                that.paginate();
-            }
-        });
+    componentWillUnmount() {
+        document.removeEventListener('scroll', this.scrollPaginate);
+        this.props.resetCelebrityList();
     }
 
     paginate = () => {
         this.setState({
-            pageNumber: this.state.pageNumber + 1
+            pageNumber: this.state.pageNumber + 1,
+            loading: true
         });
         this.props.getCelebrityList(this.state.pageNumber);
-    };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.celebrities.length != nextProps.celebrities.length) {
+            this.setState({
+                loading: false
+            })
+        }
+    }
 
     render() {
         return (

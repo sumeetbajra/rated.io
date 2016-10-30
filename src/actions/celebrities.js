@@ -81,3 +81,30 @@ function getCelebrityMoviesResponse(res) {
 		res
 	}
 }
+
+export function resetCelebrityList() {
+	return {
+		type: 'RESET_CELEBRITY_LIST'
+	}
+}
+
+export function addCelebrity(payload) {
+	return dispatch => {
+		request.post(APIEndpoints.ADD_CELEBRITY)
+			.set('Content-Type', 'application/json')
+			.set('Authorization', localStorage.getItem('token'))
+			.send(JSON.stringify(payload))
+			.end(function(err, res) {
+				if(!res.error) {
+					dispatch(addCelebrityResponse(res.body));
+				}
+			});
+	}
+}
+
+function addCelebrityResponse(res) {
+	return {
+		type: 'ADD_CELEBRITY_RESPONSE',
+		res
+	}
+}

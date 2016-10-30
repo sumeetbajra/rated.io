@@ -33,10 +33,10 @@ export class MoviesTable extends Component {
                             <tr key={movie._id}>
                                 <td>{movie.title} ({movie.year})</td>
                                 <td>{movie.director.map((director) => {
-                                    return <div>{director.fullName || director.celebrityId.fullName}</div>
+                                    return <div key={director._id}>{director.fullName || director.celebrityId.fullName}</div>
                                 })}</td>
                                  <td>{movie.cast.map((cast) => {
-                                    return <div>{cast.fullName || cast.celebrityId.fullName}</div>
+                                    return <div key={cast._id}>{cast.fullName || cast.celebrityId.fullName}</div>
                                 })}</td>
                                 <td>
                                     <Link to={'/admin/update-movie/' + movie._id} className="btn btn-primary btn-sm">

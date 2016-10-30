@@ -13,6 +13,7 @@ import { Admin } from 'containers/Admin';
 import { AddMovie } from 'containers/Admin/AddMovie';
 import { UpdateMovie } from 'containers/Admin/UpdateMovie';
 import { MovieList } from 'containers/Admin/MovieList';
+import { AddCelebrity } from 'containers/Admin/AddCelebrity';
 import { CelebrityList } from 'containers/Admin/CelebrityList';
 
 function checkAdmin() {
@@ -31,6 +32,7 @@ export default (
         <Route path="add-movie" component={AddMovie} />
         <Route path="update-movie/:id" component={UpdateMovie} />
         <Route path="list" component={MovieList} />
+        <Route path="add-celebrity" component={AddCelebrity} />
         <Route path="celebrity-list" component={CelebrityList} />
     </Route>
     <Route status={404} path="*" component={Home} />

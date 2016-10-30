@@ -225,3 +225,9 @@ function uploadImageSuccess(url) {
         url
     }
 }
+
+export function resetMovieList() {
+    return {
+        type: 'RESET_MOVIE_LIST'
+    }
+}

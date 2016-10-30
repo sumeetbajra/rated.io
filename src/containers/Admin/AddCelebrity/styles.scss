@@ -1,0 +1,19 @@
+:local(.styles) {
+  #add-celebrity-form {
+    .form-group {
+
+      margin: 5px 0;
+
+      .form-error {
+        display: inline;
+        position: relative;
+        left: 10px;
+      }
+
+      label {
+        width: 100px;
+      }
+    }
+  }
+
+}

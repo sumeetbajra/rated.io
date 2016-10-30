@@ -17,29 +17,43 @@ export class MovieList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pageNumber: 1
+            pageNumber: 1,
+            loading: false
         }
     }
 
     componentDidMount = () => {
         this.props.getAllMovies(this.state.pageNumber);
-        var that = this;
-
-        document.addEventListener('scroll', function (event) {
-            if (document.body.scrollHeight <
-                document.body.scrollTop +
-                window.innerHeight + 200) {
-                that.paginate();
-            }
-        });
+        document.addEventListener('scroll', this.scrollPaginate);
     };
+
+    scrollPaginate = (event) => {
+        if (document.body.scrollHeight <
+            document.body.scrollTop +
+            window.innerHeight + 200 && !this.state.loading) {
+            this.paginate();
+        }
+    };
+
+    componentWillUnmount() {
+        document.removeEventListener('scroll', this.scrollPaginate);
+        this.props.resetMovieList();
+    }
 
     paginate = () => {
         this.setState({
-            pageNumber: this.state.pageNumber + 1
+            pageNumber: this.state.pageNumber + 1,
+            loading: true
         });
-
         this.props.getAllMovies(this.state.pageNumber);
+    };
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.movies.length != nextProps.movies.length) {
+            this.setState({
+                loading: false
+            });
+        }
     }
 
     render() {

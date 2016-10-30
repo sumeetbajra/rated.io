@@ -37,7 +37,7 @@ export class Admin extends Component {
                                             <div className="panel-body">
                                                 <ul className="nav navbar-nav">
                                                     <li><Link to={'/admin/celebrity-list'}><i className="fa fa-list"></i> List Celebrities</Link></li>
-                                                    <li><Link to={'/admin/add-movie'}><i className="fa fa-plus"></i> Add New Celebrity</Link></li>
+                                                    <li><Link to={'/admin/add-celebrity'}><i className="fa fa-plus"></i> Add New Celebrity</Link></li>
                                                 </ul>
                                             </div>
                                         </div>

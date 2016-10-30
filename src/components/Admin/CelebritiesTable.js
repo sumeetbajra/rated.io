@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import moment from 'moment';
 
 export class CelebritiesTable extends Component {
 
@@ -39,7 +40,7 @@ export class CelebritiesTable extends Component {
                             <td><img src={celebrity.picture} width="50"/></td>
                             <td>{celebrity.fullName}</td>
                             <td>{celebrity.birthPlace}</td>
-                            <td>{celebrity.birthDate}</td>
+                            <td>{moment(celebrity.birthDate).format('MMM D, YYYY')}</td>
                             <td>
                                 <Link to={'/admin/update-movie/' + celebrity._id} className="btn btn-primary btn-sm">
                                     <i className="fa fa-pencil" />

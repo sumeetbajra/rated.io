@@ -20,6 +20,7 @@ export const APIEndpoints = {
     GET_CELEBRITY: serverUrl + 'celebrity/',
     GET_CELEBRITY_RATED_MOVIES: serverUrl + 'celebrity/movies/rated/',
     GET_CELEBRITY_MOVIES: serverUrl + 'celebrity/movies/',
+    ADD_CELEBRITY: serverUrl + 'celebrity/add',
 
 
 }

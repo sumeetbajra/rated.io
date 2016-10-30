@@ -137,7 +137,7 @@ export function movies(state = initialState, action) {
             return {
                 ...state,
                 errorMessage: null
-            }
+            };
             break;
 
         case 'ADD_RATING_RESPONSE':
@@ -146,7 +146,6 @@ export function movies(state = initialState, action) {
                     ...state,
                     movieData: action.res.res
                 }
-                return state;                    
             }else {
                 return {
                     ...state,
@@ -161,7 +160,6 @@ export function movies(state = initialState, action) {
                     ...state,
                     movieData: action.res.res
                 }
-                return state;                    
             }else {
                 return {
                     ...state,
@@ -174,7 +172,14 @@ export function movies(state = initialState, action) {
             return {
                 ...state, 
                 imgUrl: action.url
-            }
+            };
+            break;
+
+        case 'RESET_MOVIE_LIST':
+            return {
+                ...state,
+                movies: []
+            };
             break;
 
         default:
