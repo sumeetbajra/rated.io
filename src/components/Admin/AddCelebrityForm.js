@@ -14,12 +14,13 @@ export class AddCelebrityForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            picture: null
+            picture: null,
+            pictureRemoved: false
         }
     }
 
     validateAlphabet(rule, value, callback) {
-        var re = /^[a-zA-Z ]*$/;
+        var re = /^[a-zA-Z.' ]*$/;
         if(value && !re.test(value)) {
             callback('The value you entered is invalid.');
         }else {
@@ -70,7 +71,15 @@ export class AddCelebrityForm extends Component {
 
             reader.readAsBinaryString(upload.files[0]);
         }
-    };
+    }
+
+    _removePicture = (e) => {
+        e.preventDefault();
+        this.setState({
+            picture: null,
+            pictureRemoved: true
+        });
+    }
 
     submitForm = (e) => {
         e.preventDefault();
@@ -82,7 +91,7 @@ export class AddCelebrityForm extends Component {
                     birthPlace: document.getElementsByName('birthPlace')[0].value,
                     birthDate: moment(document.getElementsByName('birthDate')[0].value).unix() * 1000,
                     bio: document.getElementsByName('bio')[0].value,
-                    picture: !this.props.update || this.props.update && this.state.picture ? this.state.picture : this.props.celebrity.picture
+                    picture: !this.props.update || (this.props.update && this.state.picture || this.state.pictureRemoved) ? this.state.picture : this.props.celebrity.picture
                 }
                 this.props.update ? this.props.submit(this.props.celebrity._id, payload) : this.props.submit(payload);
             }
@@ -126,7 +135,7 @@ export class AddCelebrityForm extends Component {
                 <div className="row">
                     <div className="form-group col-sm-12">
                         <label htmlFor="bio">Bio</label>
-                        <textarea name="bio" rows="5" placeholder="Bio" cols="50" className="input form-control" {...getFieldProps('Bio', {initialValue: celebrity.bio, rules: [{validator: this.validateAlphaNumeric}]})} />
+                        <textarea name="bio" rows="5" placeholder="Bio" cols="50" className="input form-control" {...getFieldProps('Bio', {initialValue: celebrity.bio, rules: []})} />
                         <span className="form-error">{(errors = getFieldError('Bio')) ? errors.join(',') : null}</span>
                     </div>
                 </div>
@@ -136,11 +145,13 @@ export class AddCelebrityForm extends Component {
                         <input type="file" name="picture" className="input form-control" onChange={this._fileUpload.bind(this, 'picture')}/> <br />
                     </div>
                 </div>
-                {pictureUrl ?
+                {pictureUrl && !this.state.pictureRemoved ?
                     <div className="row">
                         <div className="form-group col-sm-12">
                             <label htmlFor=""></label>
-                            <img src={pictureUrl} width="150" />
+                            <img src={pictureUrl} width="150" /><br />
+                            <label htmlFor=""></label>
+                            <a href="#" onClick={this._removePicture}>Remove</a>
                         </div>
                     </div>
                 : null}

@@ -33,32 +33,45 @@ export class CelebrityPage extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			loading: false
+		}
 	}
 
 	componentWillMount() {
 		this.props.getCelebrity(this.props.params.id);
 		this.props.getCelebrityRatedMovies(this.props.params.id);
 		this.props.getCelebrityMovies(this.props.params.id);
+		this.setState({
+			loading: true
+		});
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			loading: false
+		});
 	}
 
 	render() {
 		return (
-			<section className={ `${styles} page` }>
-                <div className="container">
-                    <div className="row">
-						<div className="col-sm-3">
-							<img className="img img-responsive" src={this.props.celebrity.picture} />
-						</div>
-						<div className="col-sm-9 celebrity-description">
-							<CelebrityInfo data={this.props.celebrity} bestMovie={this.props.ratedMovies.length ? this.props.ratedMovies[0] : null} />
-							<hr />
-							<RatedMovies movies={this.props.ratedMovies.length ? this.props.ratedMovies : []} />
-							<hr />
-							<Filmography movies={this.props.allMovies.length ? this.props.allMovies : []} />
+			this.state.loading ? <span>Loading</span> :
+				<section className={ `${styles} page` }>
+					<div className="container">
+						<div className="row">
+							<div className="col-sm-3">
+								<img className="img img-responsive" src={this.props.celebrity.picture} />
+							</div>
+							<div className="col-sm-9 celebrity-description">
+								<CelebrityInfo data={this.props.celebrity} bestMovie={this.props.ratedMovies.length ? this.props.ratedMovies[0] : null} />
+								<hr />
+								<RatedMovies movies={this.props.ratedMovies.length ? this.props.ratedMovies : []} />
+								<hr />
+								<Filmography movies={this.props.allMovies.length ? this.props.allMovies : []} />
+							</div>
 						</div>
 					</div>
-				</div>
-			</section> 
+				</section>
 		);
 	}
 }

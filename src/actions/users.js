@@ -20,7 +20,7 @@ function loginSuccess(res) {
 
 export function addUser(userData) {
     return dispatch => {
-        request.post('http://localhost:8080/users/register')
+        request.post(APIEndpoints.REGISTER_USER)
         .set('Content-Type', 'application/json')
         .send(userData)
         .end(function(err, res) {
@@ -34,7 +34,7 @@ export function addUser(userData) {
 
 export function login(payload) {
     return dispatch => {
-        request.post('http://localhost:8080/users/login')
+        request.post(APIEndpoints.LOGIN_USER)
         .set('Content-Type', 'application/json')
         .send(payload)
         .end(function(err, res) {

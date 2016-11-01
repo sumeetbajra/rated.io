@@ -1,5 +1,6 @@
 
-var serverUrl = 'http://localhost:8080/';
+//var serverUrl = 'http://localhost:8080/';
+var serverUrl = 'https://rated-io.herokuapp.com/';
 
 export const APIEndpoints = {
     ADD_MOVIE: serverUrl + 'movies/add',
@@ -7,6 +8,9 @@ export const APIEndpoints = {
     MOVIES: serverUrl + 'movies/',
     LATEST_MOVIES: serverUrl + 'movies/latest',
     BEST_MOVIES: serverUrl + 'movies/best',
+
+    REGISTER_USER: serverUrl + 'users/register',
+    LOGIN_USER: serverUrl + 'users/login',
     GET_USER: serverUrl + 'users/',
     ADD_RATING: serverUrl + 'ratings/add/',
     UPDATE_RATING: serverUrl + 'ratings/update/',

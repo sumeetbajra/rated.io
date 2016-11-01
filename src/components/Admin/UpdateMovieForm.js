@@ -95,6 +95,13 @@ export class UpdateMovieForm extends Component {
         }
     }
 
+    _removePicture = (field, e) => {
+        this.setState({
+            [field]: null
+        });
+        e.preventDefault();
+    }
+
     submitForm = (e) => {
         e.preventDefault();
 
@@ -112,8 +119,6 @@ export class UpdateMovieForm extends Component {
                     coverUrl: this.state.cover,
                     slug: document.getElementsByName('title')[0].value.split(' ').join('-') + '-' + Date.now()
                }
-               if(!payload.posterUrl) delete payload.posterUrl;
-               if(!payload.coverUrl) delete payload.coverUrl;
                this.props.updateMovie(this.props.movie._id, payload);
             }
         });
@@ -201,14 +206,24 @@ export class UpdateMovieForm extends Component {
                         <div className="form-group">
                             <label htmlFor="title">Movie Poster</label>
                             <input type="file" className="form-control" name="poster" onChange={this._fileUpload.bind(this, 'poster')}/>
-                            {this.state.poster && <img src={this.state.poster} className="img img-responsive" style={{height: '180px', marginTop: '10px'}}/>}
+                            {this.state.poster &&
+                                <span>
+                                    <img src={this.state.poster} className="img img-responsive" style={{height: '180px', marginTop: '10px'}}/>
+                                    <a href="#" onClick={this._removePicture.bind(null, 'poster')}>Remove</a>
+                                </span>
+                            }
                         </div>
                     </div>
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Movie Cover Image</label>
                             <input type="file" className="form-control" name="cover" onChange={this._fileUpload.bind(this, 'cover')}/>
-                            {this.state.cover && <img src={this.state.cover} className="img img-responsive" style={{height: '180px', marginTop: '10px'}}/>}
+                            {this.state.cover &&
+                                <span>
+                                    <img src={this.state.cover} className="img img-responsive" style={{height: '180px', marginTop: '10px'}}/>
+                                    <a href="#" onClick={this._removePicture.bind(null, 'cover')}>Remove</a>
+                                </span>
+                            }
                         </div>
                     </div>
                 </div>
