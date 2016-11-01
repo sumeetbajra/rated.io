@@ -79,7 +79,7 @@ export function movies(state = initialState, action) {
         case 'DELETE_MOVIE':
             if(!action.res.error) {
                 var movies = state.movies.filter(function(movie) {
-                    return movie._id != action.id
+                    return movie._id != action.res
                 });
                 return {
                     ...state,

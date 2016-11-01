@@ -51,6 +51,39 @@ export function celebrities(state=initialState, action) {
 			};
 			break;
 
+		case 'ADD_CELEBRITY_RESPONSE':
+			if(!action.res.error) {
+				location.hash = '/admin/celebrity-list';
+				return {
+					...state,
+					allCelebrities: state.allCelebrities.concat(action.res.res)
+				}
+			}
+			break;
+
+		case 'DELETE_CELEBRITY_RESPONSE':
+			if(action.id) {
+				return {
+					...state,
+					allCelebrities: state.allCelebrities.filter((celebrity) => celebrity._id != action.id)
+				}
+			}
+			break;
+
+		case 'UPDATE_CELEBRITY_RESPONSE':
+			if(!action.res.error) {
+				location.hash='/admin/celebrity-list';
+				return {
+					...state,
+					// allCelebrities: state.allCelebrities.filter((k, celebrity) => {
+					// 	if(celebrity._id == action.res.res._id) {
+					// 		state.allCelebrities[k] = action.res.res
+					// 	}
+					// })
+				}
+			}
+			break;
+
 		default:
 			return state;
 	}

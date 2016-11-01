@@ -61,7 +61,7 @@ export class MovieList extends Component {
             <div>
                 <h2>Movie List</h2>
                 <hr />
-                <MoviesTable movies={this.props.movies} />
+                <MoviesTable movies={this.props.movies} deleteMovie={this.props.deleteMovie}/>
             </div>
         )
     }

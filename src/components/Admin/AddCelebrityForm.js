@@ -28,7 +28,7 @@ export class AddCelebrityForm extends Component {
     }
 
     validateAlphaNumeric(rule, value, callback) {
-        var re = /^[a-z0-9A-Z, ]*$/;
+        var re = /^[a-z0-9A-Z,.()\-' ]*$/;
         if(value && !re.test(value)) {
             callback('The value you entered is invalid.');
         }else {
@@ -77,13 +77,14 @@ export class AddCelebrityForm extends Component {
 
         this.props.form.validateFields((error, value) => {
             if(!error) {
-                this.props.submit({
+                var payload = {
                     fullName: document.getElementsByName('name')[0].value,
                     birthPlace: document.getElementsByName('birthPlace')[0].value,
                     birthDate: moment(document.getElementsByName('birthDate')[0].value).unix() * 1000,
                     bio: document.getElementsByName('bio')[0].value,
-                    picture: this.state.picture
-                });
+                    picture: !this.props.update || this.props.update && this.state.picture ? this.state.picture : this.props.celebrity.picture
+                }
+                this.props.update ? this.props.submit(this.props.celebrity._id, payload) : this.props.submit(payload);
             }
         });
     }
@@ -93,32 +94,40 @@ export class AddCelebrityForm extends Component {
         let errors;
         const {getFieldProps, getFieldError} = this.props.form;
 
+        let {celebrity} = this.props;
+        if(!celebrity) {
+            celebrity = {}
+        }
+
+        let pictureUrl = this.state.picture ? this.state.picture : celebrity.picture;
+
         return (
             <form className="form-inline" id="add-celebrity-form" onSubmit={this.submitForm}>
                 <div className="row">
                     <div className="form-group col-sm-12">
                         <label htmlFor="name">Name</label>
-                        <input type="text" name="name" placeholder="Full Name" className="input form-control" {...getFieldProps('Name', {rules: [{required: true}, {validator: this.validateAlphabet}]})} maxLength="60"/>
+                        <input type="text" name="name" placeholder="Full Name" className="input form-control" {...getFieldProps('Name', {initialValue: celebrity.fullName, rules: [{required: true}, {validator: this.validateAlphabet}]})} maxLength="60"/>
                         <span className="form-error">{(errors = getFieldError('Name')) ? errors.join(',') : null}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-sm-12">
                         <label htmlFor="birthPlace">Birth Place</label>
-                        <input type="text" name="birthPlace" placeholder="Birth Place" className="input form-control" {...getFieldProps('Birth Place', {rules: [{required: true}, {validator: this.validateAlphaNumeric}]})}/>
+                        <input type="text" name="birthPlace" placeholder="Birth Place" className="input form-control" {...getFieldProps('Birth Place', {initialValue: celebrity.birthPlace, rules: [{required: true}, {validator: this.validateAlphaNumeric}]})}/>
                         <span className="form-error">{(errors = getFieldError('Birth Place')) ? errors.join(',') : null}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-sm-12">
                         <label htmlFor="birthDate">Birth Date</label>
-                        <input type="date" name="birthDate" className="input form-control" />
+                        <input type="date" name="birthDate" className="input form-control" defaultValue={moment(celebrity.birthDate).format('YYYY-MM-DD')}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-sm-12">
                         <label htmlFor="bio">Bio</label>
-                        <textarea name="bio" rows="5" placeholder="Bio" cols="50" className="input form-control" />
+                        <textarea name="bio" rows="5" placeholder="Bio" cols="50" className="input form-control" {...getFieldProps('Bio', {initialValue: celebrity.bio, rules: [{validator: this.validateAlphaNumeric}]})} />
+                        <span className="form-error">{(errors = getFieldError('Bio')) ? errors.join(',') : null}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -127,11 +136,11 @@ export class AddCelebrityForm extends Component {
                         <input type="file" name="picture" className="input form-control" onChange={this._fileUpload.bind(this, 'picture')}/> <br />
                     </div>
                 </div>
-                {this.state.picture ?
+                {pictureUrl ?
                     <div className="row">
                         <div className="form-group col-sm-12">
                             <label htmlFor=""></label>
-                            <img src={this.state.picture} width="150" />
+                            <img src={pictureUrl} width="150" />
                         </div>
                     </div>
                 : null}

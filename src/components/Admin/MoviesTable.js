@@ -5,7 +5,7 @@ export class MoviesTable extends Component {
 
     deleteMovie = (id, e) => {
         e.preventDefault();
-        this.props.deleteMovie(id)
+        this.props.deleteMovie(id);
     };
 
     render() {

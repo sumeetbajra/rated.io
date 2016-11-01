@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { CelebritiesTable } from 'components/Admin/CelebritiesTable';
 import { getCelebrityList } from 'actions/celebrities';
 import { resetCelebrityList } from 'actions/celebrities';
+import { deleteCelebrity } from 'actions/celebrities';
 
 @connect(
     state => {
@@ -18,7 +19,8 @@ import { resetCelebrityList } from 'actions/celebrities';
     dispatch => {
         return {
             getCelebrityList: bindActionCreators(getCelebrityList, dispatch),
-            resetCelebrityList: bindActionCreators(resetCelebrityList, dispatch)
+            resetCelebrityList: bindActionCreators(resetCelebrityList, dispatch),
+            deleteCelebrity: bindActionCreators(deleteCelebrity, dispatch)
         }
     }
 )
@@ -71,7 +73,7 @@ export class CelebrityList extends Component {
             <div>
                 <h2>Manage Celebrities</h2>
                 <hr />
-                <CelebritiesTable celebrities={this.props.celebrities} />
+                <CelebritiesTable celebrities={this.props.celebrities} deleteCelebrity={this.props.deleteCelebrity}/>
             </div>
         );
     }

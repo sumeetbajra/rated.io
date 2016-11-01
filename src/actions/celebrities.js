@@ -1,5 +1,6 @@
 import request from 'superagent';
 import { APIEndpoints } from 'constants/CommonConstants';
+import { toastr } from 'react-redux-toastr';
 
 export function getCelebrityList(page) {
 	return dispatch => {
@@ -103,8 +104,58 @@ export function addCelebrity(payload) {
 }
 
 function addCelebrityResponse(res) {
+	if(!res.error)
+		toastr.success('Success', 'Celebrity has been added successfully.');
 	return {
 		type: 'ADD_CELEBRITY_RESPONSE',
+		res
+	}
+}
+
+export function deleteCelebrity(id) {
+	return dispatch => {
+		toastr.confirm('Are you sure about that!', {
+			onOk: () => {
+				request.delete(APIEndpoints.GET_CELEBRITY + id)
+					.set('authorization', localStorage.getItem('token'))
+					.end(function(err, res) {
+						if(!res.error) {
+							dispatch(deleteCelebrityResponse(id));
+						}
+					})
+			},
+			onCancel: () => {
+				cancelDeleteCelebrity();
+			}
+		});
+	}
+}
+
+function deleteCelebrityResponse(id) {
+	return {
+		type: 'DELETE_CELEBRITY_RESPONSE',
+		id: id
+	}
+}
+
+export function updateCelebrity(id, payload) {
+	return dispatch => {
+		request.put(APIEndpoints.GET_CELEBRITY + id)
+			.set('authorization', localStorage.getItem('token'))
+			.send(payload)
+			.end(function(err, res) {
+				if(!res.error) {
+					dispatch(updateCelebrityResponse(res));
+				}
+			})
+	}
+}
+
+function updateCelebrityResponse(res) {
+	if(!res.error)
+		toastr.success('Success', 'Celebrity has been updated successfully.');
+	return {
+		type: 'UPDATE_CELEBRITY_RESPONSE',
 		res
 	}
 }

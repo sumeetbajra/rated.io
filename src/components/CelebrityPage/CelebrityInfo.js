@@ -17,14 +17,14 @@ export class CelebrityInfo extends Component {
 						{this.props.bestMovie ? <span><MovieStars rating={this.props.bestMovie.overallRating} /> {this.props.bestMovie.title} ({this.props.bestMovie.year})</span> : <i>No movies yet</i>}
 					</div>
 				</div>
-				<div className="row celebrity-description__row">
+				{/**<div className="row celebrity-description__row">
 					<div className="col-sm-2 celebrity-description__row__label">
 						<span>Worst Movie:</span>
 					</div>
 					<div className="col-sm-10 celebrity-description__row__desc">
 						<MovieStars rating="2" /> The Journey (1988)
 					</div>
-				</div>
+				</div>**/}
 				<div className="row celebrity-description__row">
 					<div className="col-sm-2 celebrity-description__row__label">
 						<span>Birth Date:</span>

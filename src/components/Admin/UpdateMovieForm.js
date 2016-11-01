@@ -85,6 +85,16 @@ export class UpdateMovieForm extends Component {
         }
     }
 
+    removeCelebrity = (field, value, e) => {
+        e.preventDefault();
+        if(this.state[field + 'Ids'].map((item) => item.celebrityId).indexOf(value) > -1) {
+            this.setState({
+                [field]: this.state[field].filter((item) => item.celebrityId ? item.celebrityId._id != value : item._id != value),
+                [field + 'Ids']: this.state[field + 'Ids'].filter((item) => item.celebrityId != value)
+            })
+        }
+    }
+
     submitForm = (e) => {
         e.preventDefault();
 
@@ -155,7 +165,7 @@ export class UpdateMovieForm extends Component {
                             <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'directors')}/>
                             <div className="celebrity-tag">
                                 {this.state.directors.map((director) => {
-                                    return <span key={director._id} className="celebrity-tag__item">{director.fullName || director.celebrityId.fullName}</span>
+                                    return <span key={director._id} className="celebrity-tag__item">{director.fullName || director.celebrityId.fullName}&nbsp;<a href="#" onClick={this.removeCelebrity.bind(null, 'directors', director.celebrityId ? director.celebrityId._id : director._id)}>X</a></span>
                                 })}
                             </div>
                         </div>
@@ -166,7 +176,7 @@ export class UpdateMovieForm extends Component {
                     <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
                     <div className="celebrity-tag">
                         {this.state.casts.map((cast) => {
-                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName || cast.celebrityId.fullName}</span>
+                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName || cast.celebrityId.fullName}&nbsp;<a href="#" onClick={this.removeCelebrity.bind(this, 'casts', cast.celebrityId ? cast.celebrityId._id: cast._id)}>X</a></span>
                         })}
                     </div>
                 </div>
