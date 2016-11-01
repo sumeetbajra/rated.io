@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { modal } from 'react-redux-modal'; // The modal emitter
 
+import { PageSpinner } from 'components/Utility/PageSpinner';
 import { MovieCover } from 'components/Movie/MovieCover';
 import { MovieDetail } from 'components/Movie/MovieDetail';
 import { MovieReviews } from 'components/Movie/MovieReviews';
@@ -69,7 +70,7 @@ export class MoviePage extends Component {
         let movie = this.props.movieData ? this.props.movieData : {};
         let ratings = movie.ratings ? movie.ratings : [];
         return (
-            this.state.loading ? <span>Loading</span> : 
+            this.state.loading ? <PageSpinner /> :
              <section>
                 <MovieCover img={movie.coverUrl}/>
                 <div className="container">

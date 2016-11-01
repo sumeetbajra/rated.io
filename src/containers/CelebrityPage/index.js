@@ -10,6 +10,7 @@ import { getCelebrityMovies } from 'actions/celebrities';
 import { CelebrityInfo } from 'components/CelebrityPage/CelebrityInfo';
 import { RatedMovies } from 'components/CelebrityPage/RatedMovies';
 import { Filmography } from 'components/CelebrityPage/Filmography';
+import { PageSpinner } from 'components/Utility/PageSpinner';
 
 import { styles } from './style.scss';
 
@@ -55,7 +56,7 @@ export class CelebrityPage extends Component {
 
 	render() {
 		return (
-			this.state.loading ? <span>Loading</span> :
+			this.state.loading ? <PageSpinner /> :
 				<section className={ `${styles} page` }>
 					<div className="container">
 						<div className="row">

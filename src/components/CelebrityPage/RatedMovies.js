@@ -12,7 +12,7 @@ export class RatedMovies extends Component {
 				<div className="row">
 					{this.props.movies.map( ( movie ) => {
 						return (
-							<div className="col-sm-2">
+							<div className="col-sm-2" key={movie._id}>
 								<Link to={'/movie/' + movie._id}><img src={movie.posterUrl} className="img img-responsive" /></Link><br />
 								<b>{movie.title}</b> <br />
 								<MovieStars rating={movie.overallRating} /> <br /> ({movie.ratingsCount} reviews)
