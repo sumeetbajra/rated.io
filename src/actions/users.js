@@ -2,6 +2,26 @@ import request from 'superagent';
 import { APIEndpoints } from 'constants/CommonConstants';
 import {toastr} from 'react-redux-toastr';
 
+export function verifyToken(payload) {
+    return dispatch => {
+        request.post(APIEndpoints.VERIFY_TOKEN)
+            .set('Content-Type', 'application/json')
+            .send(payload)
+            .end(function(err, res) {
+                if(!res.error) {
+                    dispatch(verifyTokenResponse(res.body));
+                }
+            });
+    }
+}
+
+function verifyTokenResponse(res) {
+    return {
+        type: 'VERIFY_TOKEN_RESPONSE',
+        res
+    }
+}
+
 function registerSuccess(res) {
     if(!res.error)
         toastr.success('Success', 'You have been registered successfully. Please sign in.');

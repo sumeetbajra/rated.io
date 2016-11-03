@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { PageSpinner } from 'components/Utility/PageSpinner';
 import { UserCard } from 'components/Profile/UserCard';
 import { UserProfileReviews } from 'components/Profile/UserProfileReviews';
 import * as actionCreators from 'actions/users';
@@ -47,7 +48,7 @@ export class Profile extends Component {
         const user = this.props.profile || {};
         const reviews = this.props.reviews || {};
         return (
-            this.state.loading ? <span>Loading</span> : 
+            this.state.loading ? <PageSpinner /> :
             <section className={`${styles} page`}>
                 <div className="container">
                     <div className="row">

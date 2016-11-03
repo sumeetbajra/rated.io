@@ -13,11 +13,11 @@ export class UserProfileReviews extends Component {
                 {!this.props.reviews.length && <i>No reviews made</i>}
                 {this.props.reviews.map((review) => {
                     return (
-                        <div>
+                        <div key={review._id}>
                             {review.ratings.map((rating) => {
                                 if(rating.userId == this.props.userId) {
                                     return (
-                                        <div className="row user-ratings-row__movie">
+                                        <div className="row user-ratings-row__movie" key={rating._id}>
                                             <div className="col-sm-2 user-ratings-row__movie__movie-detail">
                                                 <img src={review.posterUrl} className="img img-responsive" />
                                             </div>

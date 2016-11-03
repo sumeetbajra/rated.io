@@ -25,6 +25,24 @@ export function users(state = initialState, action) {
     }
 
     switch(action.type) {
+
+        case 'VERIFY_TOKEN_RESPONSE':
+            if(!action.res.error && action.res.expired) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('userData');
+                location.hash = "/";
+                return {
+                    ...state,
+                    session: {
+                        userId: null,
+                        token: null,
+                        userData: null
+                    }
+                }
+            }
+            return state;
+            break;
+
         case 'ADD_USER':
         if(!action.res.error) {
             location.hash = '/sign-in';

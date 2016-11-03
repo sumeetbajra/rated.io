@@ -9,6 +9,7 @@ export const APIEndpoints = {
     LATEST_MOVIES: serverUrl + 'movies/latest',
     BEST_MOVIES: serverUrl + 'movies/best',
 
+    VERIFY_TOKEN: serverUrl + 'users/verifyToken',
     REGISTER_USER: serverUrl + 'users/register',
     LOGIN_USER: serverUrl + 'users/login',
     GET_USER: serverUrl + 'users/',

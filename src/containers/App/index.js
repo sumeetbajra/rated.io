@@ -22,6 +22,10 @@ export class App extends Component {
     children: React.PropTypes.any,
   };
 
+  componentWillMount = () => {
+    if(localStorage.getItem('token')) this.props.verifyToken({token: localStorage.getItem('token')});
+  }
+
   render() {
     return (
       <section>

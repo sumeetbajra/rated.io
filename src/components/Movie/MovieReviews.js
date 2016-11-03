@@ -14,10 +14,10 @@ export class MovieReviews extends Component {
         var fullStars = parseInt(ratings[0]);
         var stars = [];
         for (var i = fullStars - 1; i >= 0; i--) {
-            stars.push(<i className="fa fa-star" />);
+            stars.push(<i className="fa fa-star" key={Date.now + i}/>);
         }
         if(ratings[1]) {
-            stars.push(<i className="fa fa-star-half" />);
+            stars.push(<i className="fa fa-star-half" key={1}/>);
         }
         return stars;
     }
@@ -31,7 +31,7 @@ export class MovieReviews extends Component {
                 <div className="row">
                     {this.props.ratings.map((rating, i) => {
                         return (
-                            <div className="movie-reviews__single col-sm-6" style={!(i%2) ? {clear: 'both'} : null}>
+                            <div className="movie-reviews__single col-sm-6" style={!(i%2) ? {clear: 'both'} : null} key={rating._id}>
                                 <div className="row">
                                     <div className="col-sm-3" style={{textAlign: 'center'}}>
                                         <img src={rating.userId.profilePic} width="50" height="50" className="img img-circle"/><br />

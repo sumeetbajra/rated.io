@@ -16,10 +16,10 @@ export class MovieDetail extends Component {
                     <br />
                     {movie.duration} mins - Action | Fiction | SciFi<br />
                     <b>Director:</b> {movie.director && movie.director.map((director, i) => {
-                                return <span><Link to={'/celebrity/' + director.celebrityId._id}>{director.celebrityId.fullName}</Link>{i+1 != movie.director.length && <span>,</span>} </span>
+                                return <span key={director._id}><Link to={'/celebrity/' + director.celebrityId._id}>{director.celebrityId.fullName}</Link>{i+1 != movie.director.length && <span>,</span>} </span>
                             })}<br />
                     <b>Cast:</b> {movie.cast && movie.cast.map((cast, i) => {
-                                return <span><Link to={'/celebrity/' + cast.celebrityId._id}>{cast.celebrityId.fullName}</Link>{i+1 != movie.cast.length && <span>,</span>} </span>
+                                return <span key={cast._id}><Link to={'/celebrity/' + cast.celebrityId._id}>{cast.celebrityId.fullName}</Link>{i+1 != movie.cast.length && <span>,</span>} </span>
                             })}<br />
                 </div>
                 <div className="movie-desc">

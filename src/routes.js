@@ -17,8 +17,11 @@ import { AddCelebrity } from 'containers/Admin/AddCelebrity';
 import { UpdateCelebrity } from 'containers/Admin/UpdateCelebrity';
 import { CelebrityList } from 'containers/Admin/CelebrityList';
 
-function checkAdmin() {
-    return localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).role != 'admin';
+function checkAdmin(nextState, replace, callback) {
+    if(!localStorage.getItem('token') || localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).role != 'admin') {
+        replace('/');
+    }
+    callback();
 }
 
 export default (
@@ -29,7 +32,7 @@ export default (
     <Route path="movie/:id" component={MoviePage} />
     <Route path="celebrity/:id" component={CelebrityPage} />
     <Route path="profile/:id" component={Profile} />
-    <Route path="admin" component={Admin}>
+    <Route path="admin" component={Admin} onEnter={checkAdmin}>
         <Route path="add-movie" component={AddMovie} />
         <Route path="update-movie/:id" component={UpdateMovie} />
         <Route path="list" component={MovieList} />
