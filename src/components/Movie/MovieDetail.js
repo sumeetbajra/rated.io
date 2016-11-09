@@ -12,7 +12,7 @@ export class MovieDetail extends Component {
                 <h2>{movie.title} ({movie.year})</h2>
                 <div className="movie-meta">
                     <MovieStars rating={movie.overallRating} />
-                    &nbsp;({movie.ratingsCount} reviews)
+                    &nbsp;({movie.ratingsCount} {movie.ratingsCount > 1 ? 'reviews' : 'review'})
                     <br />
                     {movie.duration} mins - Action | Fiction | SciFi<br />
                     <b>Director:</b> {movie.director && movie.director.map((director, i) => {

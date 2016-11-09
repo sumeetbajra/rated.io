@@ -68,7 +68,7 @@ export class CelebrityPage extends Component {
 								<hr />
 								<RatedMovies movies={this.props.ratedMovies.length ? this.props.ratedMovies : []} />
 								<hr />
-								<Filmography movies={this.props.allMovies.length ? this.props.allMovies : []} />
+								<Filmography celebrityId={this.props.params.id} movies={this.props.allMovies.length ? this.props.allMovies : []} />
 							</div>
 						</div>
 					</div>

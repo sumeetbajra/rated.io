@@ -34,7 +34,7 @@ export class CelebrityInfo extends Component {
 				<h2>{this.props.data.fullName}</h2>
 				<div className="row celebrity-description__row">
 					<div className="col-sm-2 celebrity-description__row__label">
-						<span>Best Movie:</span>
+						<span>Highest Rated:</span>
 					</div>
 					<div className="col-sm-10 celebrity-description__row__desc">
 						{this.props.bestMovie ? <span><MovieStars rating={this.props.bestMovie.overallRating} /> {this.props.bestMovie.title} ({this.props.bestMovie.year})</span> : <i>No movies yet</i>}

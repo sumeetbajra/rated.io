@@ -33,7 +33,7 @@ export class LatestMovies extends Component {
                                             </span>
                                             <span className="movie-details__rating">
                                                 <MovieStars ratings={rating} />
-                                                {rating ? <div>{rating}/5 ({movie.ratingsCount} reviews)</div> : 'No reviews yet'}
+                                                {rating ? <div>{rating}/5 ({movie.ratingsCount} {movie.ratingsCount > 1 ? 'reviews' : 'review'})</div> : 'No reviews yet'}
                                             </span>
                                         </div>
                                     </div>

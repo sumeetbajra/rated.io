@@ -29,8 +29,11 @@ export class Filmography extends Component {
 								<tr key={movie._id}>
 									<td>{movie.title}</td>
 									<td>{movie.year}</td>
-									<td>Actor</td>
-									<td><MovieStars rating={movie.overallRating} /> ({movie.ratingsCount} reviews)</td>
+									<td>
+										<div>{movie.cast.map(c => c.celebrityId == this.props.celebrityId ? 'Cast' : '')}</div>
+										<div>{movie.director.map(d => d.celebrityId == this.props.celebrityId ? 'Director' : '')}</div>
+									</td>
+									<td><MovieStars rating={movie.overallRating} /> ({movie.ratingsCount} {movie.ratingsCount > 1 ? 'reviews' : 'review'})</td>
 								</tr>
 							)
 						})}
