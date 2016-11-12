@@ -54,7 +54,7 @@ export class SearchCelebrity extends Component {
     // Use your imagination to render suggestions. 
     renderSuggestion(suggestion) {
         return (
-            <span>{suggestion.fullName}</span>
+            <span><img src={suggestion.picture} width="30" style={{marginRight: '12px'}} /> {suggestion.fullName}</span>
         );
     }
 

@@ -15,18 +15,51 @@ export class Header extends Component {
       <header className={`${styles}`}>
         <div className="container">
           <div className="row">
-            <div className="col-xs-5 col-sm-3 col-md-3 col-lg-3 logo">
+            <div className="col-xs-5 col-sm-2 col-md-2 col-lg-2 logo">
               <Link to="/">
                 Rated.io
               </Link>
             </div>
 
-            <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <div className="col-xs-7 col-sm-4 col-md-4 col-lg-4 hidden-xs text-right right-nav middle-section">
+              <ul id="middle-section__list">
+                <li className="middle-section__list-item active">
+                  <a href="#">
+                    Home
+                  </a>
+                </li>
+                <li className="middle-section__list-item">
+                  <a href="#">
+                    Categories
+                  </a>
+                </li>
+                <li className="middle-section__list-item">
+                  <a href="#">
+                    Genre
+                  </a>
+                </li>
+                <li className="middle-section__list-item">
+                  <a href="#">
+                    Celebrities
+                  </a>
+                </li>
+                <li className="middle-section__list-item">
+                  <a href="#">
+                    Blog
+                  </a>
+                </li>
+              </ul>
             </div>
 
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs text-right right-nav">
+            <div className="col-sm-6 col-md-6 col-lg-6 hidden-xs text-right right-nav">
               {localStorage.getItem('token') && localStorage.getItem('token') != undefined ? 
                 <nav>
+                  <span className="right-nav__search">
+                    <div className="input-group">
+                      <span className="input-group-addon"><i className="fa fa-search" /></span>
+                      <input type="text" className="input form-control" placeholder="Search movies" />
+                    </div>
+                  </span>
                   <span className="right-nav__welcome">
                     <span className="right-nav__welcome__dropdown dropdown">
                       <a style={{cursor: 'pointer'}} className="dropdown-toggle" data-toggle="dropdown">Welcome {JSON.parse(localStorage.getItem('userData')).firstName}

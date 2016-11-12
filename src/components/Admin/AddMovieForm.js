@@ -157,7 +157,7 @@ export class AddMovieForm extends Component {
                             <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
                             <div className="celebrity-tag">
                                 {this.state.casts.map((cast) => {
-                                    return <span key={cast._id} className="celebrity-tag__item">{cast.fullName}</span>
+                                    return <span key={cast._id} className="celebrity-tag__item"><img src={cast.picture} width="30" /> {cast.fullName}</span>
                                 })}
                             </div>
                             {/**<input type="text" className="form-control" name="cast" placeholder="List of cast" {...getFieldProps('Cast', {rules: [{required: true}]})}/>**/}
