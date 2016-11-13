@@ -35,10 +35,17 @@ export class MoviePage extends Component {
         })
     }
 
-    componentWillReceiveProps() {
-        this.setState({
-            loading: false
-        })
+    componentWillReceiveProps = (nextProps) => {
+        if(this.props.params.id != nextProps.params.id) {
+            this.props.getMovie(nextProps.params.id);
+            this.setState({
+                loading: true
+            });
+        }else {
+            this.setState({
+                loading: false
+            });
+        }
     }
 
     openReviewModal = () => {

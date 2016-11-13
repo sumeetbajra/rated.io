@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from 'actions/movies';
 import { AddMovieForm } from 'components/Admin/AddMovieForm';
+import { styles } from './styles.scss';
 
 @connect(
     state => state.movies,
@@ -18,7 +19,7 @@ export class AddMovie extends Component {
     render() {
 
         return (
-            <div>
+            <div className={`${styles}`}>
                 <div className="row">
                     <div className="col-sm-12">
                         <h2>Add new movie</h2>

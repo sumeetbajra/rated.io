@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import Autosuggest from 'react-autosuggest';
 import { APIEndpoints } from 'constants/CommonConstants';
 import request from 'superagent';
 
-export class SearchCelebrity extends Component {
+export class SearchMovies extends Component {
 
 	constructor(props) {
 		super(props);
@@ -12,11 +13,6 @@ export class SearchCelebrity extends Component {
 			value: ''
 		}
 	}
-
-    getActiveListElementPos(node) {
-        for (var i=0; (node=node.previousSibling); i++);
-        return i;
-    }
 
 	 onChange = (event, { newValue }) => {
         if(!event.keyCode || (event.keyCode != 40 && event.keyCode != 38)) {
@@ -32,8 +28,7 @@ export class SearchCelebrity extends Component {
 	   	var that = this;
    	 	var re = /^[a-zA-Z ]*$/;
 	   	if(re.test(value)) {
-	    	request.get(APIEndpoints.SEARCH_CELEBRITY + value)
-				.set('authorization', localStorage.getItem('token'))
+	    	request.get(APIEndpoints.SEARCH_MOVIES + value)
 				.end(function(err, res) {
 				if(res && !res.error) {
 				    that.setState({
@@ -61,12 +56,18 @@ export class SearchCelebrity extends Component {
     // Use your imagination to render suggestions. 
     renderSuggestion(suggestion) {
         return (
-            <span><img src={suggestion.picture} width="30" style={{marginRight: '12px'}} /> {suggestion.fullName}</span>
+            <Link to={'/movie/' + suggestion._id} className="react-autosuggest__suggestion--item">
+                <img src={suggestion.posterUrl} width="30" style={{marginRight: '12px'}} /> 
+                <div className="react-autosuggest__suggestion--item__name">
+                    <b>{suggestion.title}</b> ({suggestion.year})<br />
+                    <span className="react-autosuggest__suggestion--item__name--cast">
+                        {suggestion.cast.map((c, k) => {
+                            return c.celebrityId.fullName + (k != suggestion.cast.length - 1 ? ', ' : '');
+                        })}
+                    </span>
+                </div>
+            </Link>
         );
-    }
-
-    onSuggestionSelected = (event, { suggestion }) => {
-    	this.props.addCelebrity(suggestion);
     }
 
     render() {
@@ -74,7 +75,7 @@ export class SearchCelebrity extends Component {
 	 	const {value, suggestions} = this.state;
         // Autosuggest will pass through all these props to the input field. 
         const inputProps = {
-            placeholder: 'Search Celebrity',
+            placeholder: 'Search Movies',
             value,
             onChange: this.onChange,
         };

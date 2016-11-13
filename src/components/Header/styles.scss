@@ -10,6 +10,45 @@
 
   background: rgba(0, 0, 0, .8);
 
+  .react-autosuggest__container {
+
+    float: left;
+    position: relative;
+    top: 8px;
+    margin-left: -55px;
+    width: 64%;
+
+    .react-autosuggest__suggestions-container {
+      width: 100%;
+
+      .react-autosuggest__suggestions-list {
+        .react-autosuggest__suggestion {
+          text-align: left;
+
+          .react-autosuggest__suggestion--item {
+
+            color: #004b58;            
+            
+            img {
+              float: left;
+            }
+
+            .react-autosuggest__suggestion--item__name {
+              display: inline-block;
+              width: 85%;
+              line-height: 22px;
+
+              .react-autosuggest__suggestion--item__name--cast {
+                font-size: 12px;
+                color: #4c4c4c;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   a, a:hover {
     color: #FFF;
   }

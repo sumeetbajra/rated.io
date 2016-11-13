@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 /* component styles */
 import { styles } from './styles.scss';
 
+import { SearchMovies } from './SearchMovies';
+
 export class Header extends Component {
 
   constructor(props) {
@@ -35,11 +37,6 @@ export class Header extends Component {
                 </li>
                 <li className="middle-section__list-item">
                   <a href="#">
-                    Genre
-                  </a>
-                </li>
-                <li className="middle-section__list-item">
-                  <a href="#">
                     Celebrities
                   </a>
                 </li>
@@ -52,14 +49,17 @@ export class Header extends Component {
             </div>
 
             <div className="col-sm-6 col-md-6 col-lg-6 hidden-xs text-right right-nav">
+              <nav>
+                {/**<span className="right-nav__search">
+                  <div className="input-group">
+                    <span className="input-group-addon"><i className="fa fa-search" /></span>
+                    <input type="text" className="input form-control" placeholder="Search movies" />
+                  </div>
+                </span>**/}
+                <SearchMovies />
+              </nav>
               {localStorage.getItem('token') && localStorage.getItem('token') != undefined ? 
                 <nav>
-                  <span className="right-nav__search">
-                    <div className="input-group">
-                      <span className="input-group-addon"><i className="fa fa-search" /></span>
-                      <input type="text" className="input form-control" placeholder="Search movies" />
-                    </div>
-                  </span>
                   <span className="right-nav__welcome">
                     <span className="right-nav__welcome__dropdown dropdown">
                       <a style={{cursor: 'pointer'}} className="dropdown-toggle" data-toggle="dropdown">Welcome {JSON.parse(localStorage.getItem('userData')).firstName}

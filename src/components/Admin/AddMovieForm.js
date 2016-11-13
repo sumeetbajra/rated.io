@@ -19,6 +19,14 @@ export class AddMovieForm extends Component {
         }
     }
 
+    componentDidMount() {
+        document.querySelector('form').onkeypress = function(e) {
+            if(e.keyCode === 13) {
+                return false;
+            }
+        }
+    }
+
     validateText(rule, value, callback) {
         var re = /^[a-zA-Z, ]*$/;
         if(value && !re.test(value)) {
@@ -72,6 +80,16 @@ export class AddMovieForm extends Component {
             })
         }
     };
+
+    removeCelebrity = (field, value, e) => {
+        e.preventDefault();
+        if(this.state[field + 'Ids'].map((item) => item.celebrityId).indexOf(value) > -1) {
+            this.setState({
+                [field]: this.state[field].filter((item) => item._id != value),
+                [field + 'Ids']: this.state[field + 'Ids'].filter((item) => item.celebrityId != value)
+            })
+        }
+    }
 
     submitForm = (e) => {
         e.preventDefault();
@@ -142,7 +160,7 @@ export class AddMovieForm extends Component {
                             <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'directors')}/>
                             <div className="celebrity-tag">
                                 {this.state.directors.map((director) => {
-                                    return <span key={director._id} className="celebrity-tag__item">{director.fullName}</span>
+                                    return <span key={director._id} className="celebrity-tag__item"><img src={director.picture} width="30" /> {director.fullName}&nbsp;<a href="#" onClick={this.removeCelebrity.bind(this, 'directors', director._id)} className="cross-box">X</a></span>
                                 })}
                             </div>
                             {/**<input type="text" className="form-control" name="director" placeholder="Director of the movie" {...getFieldProps('Movie Director', {rules: [{required: true}, {validator: this.validateText}]})}/>**/}
@@ -157,7 +175,7 @@ export class AddMovieForm extends Component {
                             <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
                             <div className="celebrity-tag">
                                 {this.state.casts.map((cast) => {
-                                    return <span key={cast._id} className="celebrity-tag__item"><img src={cast.picture} width="30" /> {cast.fullName}</span>
+                                    return <span key={cast._id} className="celebrity-tag__item"><img src={cast.picture} width="30" /> {cast.fullName}&nbsp;<a href="#" onClick={this.removeCelebrity.bind(this, 'casts', cast._id)} className="cross-box">X</a></span>
                                 })}
                             </div>
                             {/**<input type="text" className="form-control" name="cast" placeholder="List of cast" {...getFieldProps('Cast', {rules: [{required: true}]})}/>**/}

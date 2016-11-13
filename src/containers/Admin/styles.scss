@@ -32,6 +32,10 @@
 	    list-style: none;
 	    padding: 0;
 	    margin: 0;
+	    
+	    .react-autosuggest__suggestion--focused {
+	    	background: #E2FBFF;
+	    }
 	}
 
 	.react-autosuggest__suggestion {
@@ -43,10 +47,14 @@
 		margin: 20px 0;
 
 		.celebrity-tag__item {
-		    background: #ECECEC;
 		    padding: 10px;
 		    border-radius: 8px;
 		    margin-right: 4px;
+		    font-weight: bold;
+
+		    img {
+		    	margin-right: 8px
+		    }
 		}
 	}
 
