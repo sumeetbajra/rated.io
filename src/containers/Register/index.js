@@ -21,7 +21,7 @@ export class Register extends Component {
             <section>
                 <div className="container">
                     <div className="row">
-                        <Form addUser={this.props.addUser} />
+                        <Form addUser={this.props.addUser} redirect={true} />
                     </div>
                 </div>
             </section>

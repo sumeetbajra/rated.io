@@ -16,6 +16,8 @@ import { MovieList } from 'containers/Admin/MovieList';
 import { AddCelebrity } from 'containers/Admin/AddCelebrity';
 import { UpdateCelebrity } from 'containers/Admin/UpdateCelebrity';
 import { CelebrityList } from 'containers/Admin/CelebrityList';
+import { CategoryList } from 'containers/Admin/CategoryList';
+import { AddCategory } from 'containers/Admin/AddCategory';
 
 function checkAdmin(nextState, replace, callback) {
     if(!localStorage.getItem('token') || localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).role != 'admin') {
@@ -39,6 +41,8 @@ export default (
         <Route path="add-celebrity" component={AddCelebrity} />
         <Route path="update-celebrity/:id" component={UpdateCelebrity} />
         <Route path="celebrity-list" component={CelebrityList} />
+        <Route path="category-list" component={CategoryList} />
+        <Route path="add-category" component={AddCategory} />
     </Route>
     <Route status={404} path="*" component={Home} />
   </Route>

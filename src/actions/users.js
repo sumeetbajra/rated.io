@@ -22,23 +22,25 @@ function verifyTokenResponse(res) {
     }
 }
 
-function registerSuccess(res) {
+function registerSuccess(res, redirect) {
     if(!res.error)
         toastr.success('Success', 'You have been registered successfully. Please sign in.');
     return {
         type: 'LOGIN_USER',
-        res
+        res,
+        redirect
     }
 }
 
-function loginSuccess(res) {
+function loginSuccess(res, redirect) {
     return {
         type: 'LOGIN_USER',
-        res
+        res,
+        redirect: redirect
     }
 }
 
-export function addUser(userData) {
+export function addUser(userData, redirect) {
     return dispatch => {
         request.post(APIEndpoints.REGISTER_USER)
         .set('Content-Type', 'application/json')
@@ -46,20 +48,20 @@ export function addUser(userData) {
         .end(function(err, res) {
             console.log(res);
             if(!res.error) {
-                dispatch(registerSuccess(res.body));
+                dispatch(registerSuccess(res.body, redirect));
             }
         })
     }
 }
 
-export function login(payload) {
+export function login(payload, redirect) {
     return dispatch => {
         request.post(APIEndpoints.LOGIN_USER)
         .set('Content-Type', 'application/json')
         .send(payload)
         .end(function(err, res) {
             if(!res.error) {
-                dispatch(loginSuccess(res.body));
+                dispatch(loginSuccess(res.body, redirect));
             }
         })
     }

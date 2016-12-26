@@ -15,16 +15,22 @@ export class AddMovieForm extends Component {
             directorsIds: [],
             directors: [],
             castsIds: [],
-            casts: []
+            casts: [],
+            movieCategories: []
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         document.querySelector('form').onkeypress = function(e) {
             if(e.keyCode === 13) {
                 return false;
             }
         }
+        this.props.getMovieCategories().end((err, res) => {
+            this.setState({
+                movieCategories: res.body.res
+            });
+        });
     }
 
     validateText(rule, value, callback) {
@@ -100,6 +106,7 @@ export class AddMovieForm extends Component {
                     title: document.getElementsByName('title')[0].value,
                     description: document.getElementById('description').value,
                     year: document.getElementsByName('year')[0].value,
+                    category: document.getElementsByName('category')[0].value,
                     director: this.state.directorsIds,
                     cast: this.state.castsIds,
                     duration: document.getElementsByName('duration')[0].value,
@@ -125,6 +132,7 @@ export class AddMovieForm extends Component {
 
         let errors;
         const {getFieldProps, getFieldError} = this.props.form;
+        let { movieCategories } = this.state;
        
         return (
             <form onSubmit={this.submitForm} className="row">
@@ -156,6 +164,20 @@ export class AddMovieForm extends Component {
                     </div>
                     <div className="col-sm-6">
                         <div className="form-group">
+                            <label htmlFor="year">Genre</label>
+                            <select className="form-control" name="category" {...getFieldProps('Movie Category', {rules: [{required: true}]})}>
+                                <option>--Select Genre--</option>
+                                {movieCategories.map((category) => {
+                                    return <option value={category._id} key={category._id}>{category.categoryName}</option>
+                                })}
+                            </select>
+                            <span className="form-error">{(errors = getFieldError('Movie Category')) ? errors.join(',') : null}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-sm-6">
+                        <div className="form-group">
                             <label htmlFor="title">Director</label>
                             <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'directors')}/>
                             <div className="celebrity-tag">
@@ -167,9 +189,7 @@ export class AddMovieForm extends Component {
                             {/**<span className="form-error">{(errors = getFieldError('Movie Director')) ? errors.join(',') : null}</span>**/}
                         </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-sm-12">
+                    <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Cast</label>
                             <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>

@@ -5,7 +5,8 @@ const initialState = {
     bestMovies: [],
     latestMovies: [],
     errorMessage: null,
-    imgUrl: null
+    imgUrl: null,
+    categories: []
 }
 
 function setError(message) {
@@ -181,6 +182,10 @@ export function movies(state = initialState, action) {
                 movies: []
             };
             break;
+
+        case 'ADD_MOVIE_CATEGORY_RESPONSE':
+            location.hash = '/admin/category-list';
+            return state;
 
         default:
             return state;

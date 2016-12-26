@@ -10,14 +10,17 @@ import { MovieReviews } from 'components/Movie/MovieReviews';
 import { MovieImg } from 'components/Movie/MovieImg';
 import { AddReviewForm } from 'components/Movie/AddReviewForm';
 import { MovieTrailerModal } from 'components/Movie/MovieTrailerModal';
+import { SignInForm } from 'components/SignInForm';
 
-import * as actionCreators from 'actions/movies';
+import { getUser } from 'utils/auth';
+import { getMovie, addRating, updateRating } from 'actions/movies';
+import { addUser, login } from 'actions/users';
 
 import './moviepage.scss';
 
 @connect(
     state => state.movies,
-    dispatch => bindActionCreators(actionCreators, dispatch)
+    dispatch => bindActionCreators({getMovie, addRating, updateRating, addUser, login}, dispatch)
 )
 export class MoviePage extends Component {
 
@@ -49,17 +52,28 @@ export class MoviePage extends Component {
     }
 
     openReviewModal = () => {
-        modal.add(AddReviewForm, {
-            title: 'Submit a review for the movie',
-            size: 'medium', // large, medium or small,
-            closeOnOutsideClick: false, // (optional) Switch to true if you want to close the modal by clicking outside of it,
-            hideCloseButton: false, // (optional) if you don't wanna show the top right close button
-            movieId: this.props.params.id,
-            addRating: this.props.addRating,
-            updateRating: this.props.updateRating,
-            myRating: this.props.movieData.ratings.filter(rating => rating.userId._id == JSON.parse(localStorage.getItem('userData')).id)
-            //.. all what you put in here you will get access in the modal props ;)
-        });
+        if(getUser()) { 
+            modal.add(AddReviewForm, {
+                title: 'Submit a review for the movie',
+                size: 'medium', // large, medium or small,
+                closeOnOutsideClick: false, // (optional) Switch to true if you want to close the modal by clicking outside of it,
+                hideCloseButton: false, // (optional) if you don't wanna show the top right close button
+                movieId: this.props.params.id,
+                addRating: this.props.addRating,
+                updateRating: this.props.updateRating,
+                myRating: this.props.movieData.ratings.filter(rating => rating.userId._id == getUser().id)
+                //.. all what you put in here you will get access in the modal props ;)
+            });
+        }else {
+            modal.add(SignInForm, {
+                title: 'You need to login to submit a review',
+                size: 'medium', // large, medium or small,
+                closeOnOutsideClick: false, // (optional) Switch to true if you want to close the modal by clicking outside of it,
+                hideCloseButton: false, // (optional) if you don't wanna show the top right close button,
+                login: this.props.login,
+                addUser: this.props.addUser
+            });
+        }
     }
 
     openTrailerModal = (url, e) => {

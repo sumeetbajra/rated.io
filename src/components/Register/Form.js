@@ -78,7 +78,7 @@ export default class Form extends Component {
                     email: value['Email'],
                     username: value['Username'],
                     password: value['Password'],
-                })
+                }, this.props.redirect);
             }
         });
     }

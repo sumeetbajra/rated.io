@@ -226,6 +226,35 @@ function uploadImageSuccess(url) {
     }
 }
 
+export function getMovieCategories() {
+    return dispatch => {
+        return request.get(APIEndpoints.GET_MOVIE_CATEGORIES)
+        .set('authorization', localStorage.getItem('token'));
+    }
+}
+
+export function addMovieCategory(payload) {
+    return dispatch => {
+        request.post(APIEndpoints.ADD_MOVIE_CATEGORY)
+        .set('authorization', localStorage.getItem('token'))
+        .set('Content-Type', 'application/json')
+        .send(payload)
+        .end((err, res) => {
+            if(!res.error) {
+                dispatch(addMovieCategorySuccess(res.body));
+            }
+        })
+    }
+}
+
+export function addMovieCategorySuccess(res) {
+    toastr.success('Success', 'The movie category has been added successfully.');
+    return {
+        type: 'ADD_MOVIE_CATEGORY_RESPONSE',
+        res
+    }
+}
+
 export function resetMovieList() {
     return {
         type: 'RESET_MOVIE_LIST'

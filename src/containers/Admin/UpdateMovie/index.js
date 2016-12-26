@@ -25,7 +25,7 @@ export class UpdateMovie extends Component {
             <div>
                 <h2>Update movie</h2>
                 <hr />
-                <UpdateMovieForm updateMovie={this.props.updateMovie} movie={this.props.movieData}/>
+                <UpdateMovieForm updateMovie={this.props.updateMovie} getMovieCategories={this.props.getMovieCategories} movie={this.props.movieData}/>
             </div>
         )
     }

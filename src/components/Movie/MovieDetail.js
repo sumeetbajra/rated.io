@@ -14,7 +14,7 @@ export class MovieDetail extends Component {
                     <MovieStars rating={movie.overallRating} />
                     &nbsp;({movie.ratingsCount} {movie.ratingsCount > 1 ? 'reviews' : 'review'})
                     <br />
-                    {movie.duration} mins - Action | Fiction | SciFi<br />
+                    {movie.duration} mins - {movie.category ? movie.category.categoryName : ''}<br />
                     <b>Director:</b> {movie.director && movie.director.map((director, i) => {
                                 return <span key={director._id}><Link to={'/celebrity/' + director.celebrityId._id}>{director.celebrityId.fullName}</Link>{i+1 != movie.director.length && <span>,</span>} </span>
                             })}<br />

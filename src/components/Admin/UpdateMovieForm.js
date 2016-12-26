@@ -15,7 +15,8 @@ export class UpdateMovieForm extends Component {
             directorsIds: [],
             directors: [],
             castsIds: [],
-            casts: []
+            casts: [],
+            movieCategories: []
         }
     }
 
@@ -28,7 +29,7 @@ export class UpdateMovieForm extends Component {
         }       
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps = (nextProps) => {
         let {movie} = nextProps;
         this.setState({
             cover: movie.coverUrl,
@@ -36,8 +37,14 @@ export class UpdateMovieForm extends Component {
             casts: movie.cast,
             castsIds: movie.cast.map((cast) => { return {celebrityId: cast.celebrityId._id}}),
             directors: movie.director,
+            category: movie.category ? movie.category._id : '',
             directorsIds: movie.director.map((cast) => { return {celebrityId: cast.celebrityId._id}}),
-        })
+        });
+        this.props.getMovieCategories().end((err, res) => {
+            this.setState({
+                movieCategories: res.body.res
+            });
+        });
     }
 
     _fileUpload = (field, e) => {
@@ -113,6 +120,7 @@ export class UpdateMovieForm extends Component {
                     year: document.getElementsByName('year')[0].value,
                     director: this.state.directorsIds,
                     cast: this.state.castsIds,
+                    category: document.getElementsByName('category')[0].value,
                     duration: document.getElementsByName('duration')[0].value,
                     trailer: document.getElementsByName('trailer')[0].value,
                     posterUrl: this.state.poster,
@@ -137,6 +145,7 @@ export class UpdateMovieForm extends Component {
 
         let errors;
         const {getFieldProps, getFieldError} = this.props.form;
+        let { movieCategories } = this.state;
 
         let {movie} = this.props;
         if(!movie) {
@@ -160,10 +169,24 @@ export class UpdateMovieForm extends Component {
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="year">Year of release</label>
-                            <input type="number" className="form-control" name="year" placeholder="Year of release" {...getFieldProps('Year of release', {initialValue: movie.year ? movie.year.toString() : null, rules: [{required: true}]})}/>
+                            <input type="number" className="form-control" name="year" placeholder="Year of release" {...getFieldProps('Year of release', {initialValue: movie.year ? movie.year.toString() : '', rules: [{required: true}]})}/>
                             <span className="form-error">{(errors = getFieldError('Year of release')) ? errors.join(',') : null}</span>
                         </div>
                     </div>
+                    <div className="col-sm-6">
+                        <div className="form-group">
+                            <label htmlFor="year">Genre</label>
+                            <select className="form-control" name="category" {...getFieldProps('Movie Category', {initialValue: movie.category ? movie.category._id : '', rules: [{required: true}]})}>
+                                <option value='null'>--Select Genre--</option>
+                                {movieCategories.map((category) => {
+                                    return <option value={category._id} key={category._id}>{category.categoryName}</option>
+                                })}
+                            </select>
+                            <span className="form-error">{(errors = getFieldError('Movie Category')) ? errors.join(',') : null}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Director</label>
@@ -175,21 +198,23 @@ export class UpdateMovieForm extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="title">Cast</label>
-                    <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
-                    <div className="celebrity-tag">
-                        {this.state.casts.map((cast) => {
-                            return <span key={cast._id} className="celebrity-tag__item">{cast.fullName || cast.celebrityId.fullName}&nbsp;<a href="#" onClick={this.removeCelebrity.bind(this, 'casts', cast.celebrityId ? cast.celebrityId._id: cast._id)}>X</a></span>
-                        })}
+                    <div className="col-sm-6">
+                        <div className="form-group">
+                            <label htmlFor="title">Cast</label>
+                            <SearchCelebrity addCelebrity={this.addCelebrity.bind(null, 'casts')}/>
+                            <div className="celebrity-tag">
+                                {this.state.casts.map((cast) => {
+                                    return <span key={cast._id} className="celebrity-tag__item">{cast.fullName || cast.celebrityId.fullName}&nbsp;<a href="#" onClick={this.removeCelebrity.bind(this, 'casts', cast.celebrityId ? cast.celebrityId._id: cast._id)}>X</a></span>
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="form-group">
                             <label htmlFor="title">Duration (in mins)</label>
-                            <input type="number" className="form-control" name="duration" placeholder="Duration of movie in minutes" {...getFieldProps('Duration', {initialValue: movie.duration ? movie.duration.toString() : null, rules: [{required: true}]})}/>
+                            <input type="number" className="form-control" name="duration" placeholder="Duration of movie in minutes" {...getFieldProps('Duration', {initialValue: movie.duration ? movie.duration.toString() : '', rules: [{required: true}]})}/>
                             <span className="form-error">{(errors = getFieldError('Duration')) ? errors.join(',') : null}</span>
                         </div>
                     </div>

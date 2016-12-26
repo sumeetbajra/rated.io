@@ -42,6 +42,21 @@ export class Admin extends Component {
                                             </div>
                                         </div>
                                     </li>
+
+                                    <li className="panel panel-default" id="dropdown">
+                                        <a data-toggle="collapse" href="#categories-dropdown">
+                                            <i className="fa fa-th-list"></i> Categories <span
+                                            className="caret"></span>
+                                        </a>
+                                        <div id="categories-dropdown" className="panel-collapse collapse">
+                                            <div className="panel-body">
+                                                <ul className="nav navbar-nav">
+                                                    <li><Link to={'/admin/category-list'}><i className="fa fa-list"></i> List Categories</Link></li>
+                                                    <li><Link to={'/admin/add-category'}><i className="fa fa-plus"></i> Add New Category</Link></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li><Link to={'/admin'}><i className="fa fa-gear"></i> Settings</Link></li>
                                     <li><Link to={'/admin'}><i className="fa fa-sign-out"></i> Logout</Link></li>
 

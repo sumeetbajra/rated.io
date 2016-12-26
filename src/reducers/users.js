@@ -71,7 +71,7 @@ export function users(state = initialState, action) {
                     lastName: action.res.res.user.lastName,
                     role: action.res.res.user.role
                 }));
-                location.hash = "/";
+                if(action.redirect) location.hash = "/";
                 return {
                     ...state,
                     session: {
