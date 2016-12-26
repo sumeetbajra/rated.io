@@ -187,6 +187,10 @@ export function movies(state = initialState, action) {
             location.hash = '/admin/category-list';
             return state;
 
+        case 'UPDATE_MOVIE_CATEGORY_RESPONSE':
+            location.hash = '/admin/category-list';
+            return state;
+
         default:
             return state;
     }

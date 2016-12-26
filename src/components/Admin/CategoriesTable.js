@@ -10,6 +10,10 @@ export class CategoriesTable extends Component {
         super(props);
     }
 
+    _delete = (id, e) => {
+        this.props.delete(id);
+    }
+
     render() {
         return (
             <table className="table table-responsive">
@@ -28,7 +32,15 @@ export class CategoriesTable extends Component {
                         return (
                             <tr key={category._id}>
                                 <td>{category.categoryName}</td>
-                                <td>Edit | Delete</td>
+                                <td>
+                                    <Link className="btn btn-primary" to={'/admin/update-category/' + category._id}>
+                                        <i className="fa fa-pencil" />
+                                    </Link>
+                                    &nbsp;
+                                    <button className="btn btn-danger" onClick={this._delete.bind(null, category._id)}>
+                                        <i className="fa fa-trash" />
+                                    </button>
+                                </td>
                             </tr>
                         );
                     })}

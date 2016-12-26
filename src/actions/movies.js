@@ -233,6 +233,13 @@ export function getMovieCategories() {
     }
 }
 
+export function getMovieCategory(id) {
+    return dispatch => {
+        return request.get(APIEndpoints.MOVIE_CATEGORY + id)
+        .set('authorization', localStorage.getItem('token'));
+    }
+}
+
 export function addMovieCategory(payload) {
     return dispatch => {
         request.post(APIEndpoints.ADD_MOVIE_CATEGORY)
@@ -247,12 +254,40 @@ export function addMovieCategory(payload) {
     }
 }
 
+export function updateCategory(id, payload) {
+   return dispatch => {
+        request.put(APIEndpoints.MOVIE_CATEGORY + id)
+        .set('authorization', localStorage.getItem('token'))
+        .set('Content-Type', 'application/json')
+        .send(payload)
+        .end((err, res) => {
+            if(!res.error) {
+                dispatch(updateMovieCategorySuccess(res.body));
+            }
+        })
+    }
+}
+
 export function addMovieCategorySuccess(res) {
     toastr.success('Success', 'The movie category has been added successfully.');
     return {
         type: 'ADD_MOVIE_CATEGORY_RESPONSE',
         res
     }
+}
+
+export function updateMovieCategorySuccess(res) {
+    toastr.success('Success', 'The movie category has been updated successfully.');
+    return {
+        type: 'UPDATE_MOVIE_CATEGORY_RESPONSE'
+    }
+}
+
+export function deleteMovieCategory(id) {
+    return dispatch => {
+        return request.delete(APIEndpoints.MOVIE_CATEGORY + id)
+            .set('authorization', localStorage.getItem('token'))
+    }    
 }
 
 export function resetMovieList() {

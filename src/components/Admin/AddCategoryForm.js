@@ -7,7 +7,8 @@ export class AddCategoryForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categoryName: ''
+			categoryName: '',
+            touched: false
 		}
 	}
 
@@ -20,6 +21,15 @@ export class AddCategoryForm extends Component {
         }       
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if(nextProps.category && !this.state.touched) {
+            this.setState({
+                categoryName: nextProps.category.categoryName,
+                touched: true
+            })
+        }
+    }
+
     _submitForm = (e) => {
         e.preventDefault();
 
@@ -28,14 +38,14 @@ export class AddCategoryForm extends Component {
                 var payload = {
                     categoryName: this.state.categoryName
                 }
-                this.props.save(payload);
+                this.props.category ? this.props.save(this.props.category._id, payload) : this.props.save(payload);
             }
         });
     }
 
     _handleInputChange = (e) => {
     	this.setState({
-    		[e.target.name]: e.target.value
+    		[e.target.name]: e.target.value,
     	})
     }
 

@@ -29,6 +29,7 @@ export const APIEndpoints = {
     SEARCH_MOVIES: serverUrl + 'movies/search/',
 
     GET_MOVIE_CATEGORIES: serverUrl + 'categories/all',
-    ADD_MOVIE_CATEGORY: serverUrl + 'categories/add'
+    ADD_MOVIE_CATEGORY: serverUrl + 'categories/add',
+    MOVIE_CATEGORY: serverUrl + 'categories/'
 
 }
