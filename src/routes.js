@@ -9,6 +9,8 @@ import { SignIn } from 'containers/SignIn';
 import { MoviePage } from 'containers/MoviePage';
 import { CelebrityPage } from 'containers/CelebrityPage';
 import { Profile } from 'containers/Profile';
+import { AllCategories } from 'containers/AllCategories';
+import { CategoryMovies } from 'containers/CategoryMovies';
 import { Admin } from 'containers/Admin';
 import { AddMovie } from 'containers/Admin/AddMovie';
 import { UpdateMovie } from 'containers/Admin/UpdateMovie';
@@ -21,10 +23,10 @@ import { AddCategory } from 'containers/Admin/AddCategory';
 import { UpdateCategory } from 'containers/Admin/UpdateCategory';
 
 function checkAdmin(nextState, replace, callback) {
-    if(!localStorage.getItem('token') || localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).role != 'admin') {
-        replace('/');
-    }
-    callback();
+  if (!localStorage.getItem('token') || localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).role !== 'admin') {
+    replace('/');
+  }
+  callback();
 }
 
 export default (
@@ -35,6 +37,8 @@ export default (
     <Route path="movie/:id" component={MoviePage} />
     <Route path="celebrity/:id" component={CelebrityPage} />
     <Route path="profile/:id" component={Profile} />
+    <Route path="categories/all" component={AllCategories} />
+    <Route path="category/:id" component={CategoryMovies} />
     <Route path="admin" component={Admin} onEnter={checkAdmin}>
         <Route path="add-movie" component={AddMovie} />
         <Route path="update-movie/:id" component={UpdateMovie} />
@@ -49,4 +53,3 @@ export default (
     <Route status={404} path="*" component={Home} />
   </Route>
 );
-

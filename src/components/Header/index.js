@@ -31,9 +31,9 @@ export class Header extends Component {
                   </a>
                 </li>
                 <li className="middle-section__list-item">
-                  <a href="#">
+                  <Link to={'/categories/all'}>
                     Categories
-                  </a>
+                  </Link>
                 </li>
                 <li className="middle-section__list-item">
                   <a href="#">
@@ -50,19 +50,21 @@ export class Header extends Component {
 
             <div className="col-sm-6 col-md-6 col-lg-6 hidden-xs text-right right-nav">
               <nav>
-                {/**<span className="right-nav__search">
+                {/*
+                  <span className="right-nav__search">
                   <div className="input-group">
                     <span className="input-group-addon"><i className="fa fa-search" /></span>
                     <input type="text" className="input form-control" placeholder="Search movies" />
                   </div>
-                </span>**/}
+                  </span>
+                */}
                 <SearchMovies />
               </nav>
-              {localStorage.getItem('token') && localStorage.getItem('token') != undefined ? 
+              {localStorage.getItem('token') && localStorage.getItem('token') !== undefined ?
                 <nav>
                   <span className="right-nav__welcome">
                     <span className="right-nav__welcome__dropdown dropdown">
-                      <a style={{cursor: 'pointer'}} className="dropdown-toggle" data-toggle="dropdown">Welcome {JSON.parse(localStorage.getItem('userData')).firstName}
+                      <a style={{ cursor: 'pointer' }} className="dropdown-toggle" data-toggle="dropdown">Welcome {JSON.parse(localStorage.getItem('userData')).firstName}
                       &nbsp;<span className="caret"></span></a>
                       <ul className="dropdown-menu right-nav__welcome__dropdown__dropdown-menu">
                         <li><Link to={'/profile/' + JSON.parse(localStorage.getItem('userData')).id }><i className="fa fa-user" /> Profile</Link></li>

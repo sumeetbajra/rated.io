@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moment from 'moment';
+// import moment from 'moment';
 
 import { getCelebrity } from 'actions/celebrities';
 import { getCelebrityRatedMovies } from 'actions/celebrities';
@@ -15,47 +15,47 @@ import { PageSpinner } from 'components/Utility/PageSpinner';
 import { styles } from './style.scss';
 
 @connect(
-    state => { 
-    	return { 
-    		celebrity: state.celebrities.celebrity,
-    		ratedMovies: state.celebrities.ratedMovies,
-    		allMovies: state.celebrities.allMovies,
-    	} 
-    },
-    dispatch => {
-    	return {
-	    	getCelebrity: bindActionCreators(getCelebrity, dispatch),
-	    	getCelebrityRatedMovies: bindActionCreators(getCelebrityRatedMovies, dispatch),
-	    	getCelebrityMovies: bindActionCreators(getCelebrityMovies, dispatch)
-	    }
-    }
+  state => {
+    return {
+      celebrity: state.celebrities.celebrity,
+      ratedMovies: state.celebrities.ratedMovies,
+      allMovies: state.celebrities.allMovies,
+    };
+  },
+  dispatch => {
+    return {
+      getCelebrity: bindActionCreators(getCelebrity, dispatch),
+      getCelebrityRatedMovies: bindActionCreators(getCelebrityRatedMovies, dispatch),
+      getCelebrityMovies: bindActionCreators(getCelebrityMovies, dispatch),
+    };
+  }
 )
 export class CelebrityPage extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			loading: false
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+    };
+  }
 
-	componentWillMount() {
-		this.props.getCelebrity(this.props.params.id);
-		this.props.getCelebrityRatedMovies(this.props.params.id);
-		this.props.getCelebrityMovies(this.props.params.id);
-		this.setState({
-			loading: true
-		});
-	}
+  componentWillMount() {
+    this.props.getCelebrity(this.props.params.id);
+    this.props.getCelebrityRatedMovies(this.props.params.id);
+    this.props.getCelebrityMovies(this.props.params.id);
+    this.setState({
+      loading: true,
+    });
+  }
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			loading: false
-		});
-	}
+  componentWillReceiveProps() {
+    this.setState({
+      loading: false,
+    });
+  }
 
-	render() {
-		return (
+  render() {
+    return (
 			this.state.loading ? <PageSpinner /> :
 				<section className={ `${styles} page` }>
 					<div className="container">
@@ -74,5 +74,15 @@ export class CelebrityPage extends Component {
 					</div>
 				</section>
 		);
-	}
+  }
 }
+
+CelebrityPage.propTypes = {
+  params: PropTypes.object.isrequired,
+  celebrity: PropTypes.object.isrequired,
+  ratedMovies: PropTypes.object.isrequired,
+  allMovies: PropTypes.array.isrequired,
+  getCelebrity: PropTypes.func.isrequired,
+  getCelebrityRatedMovies: PropTypes.func.isrequired,
+  getCelebrityMovies: PropTypes.func.isrequired,
+};
