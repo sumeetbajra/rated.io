@@ -40,7 +40,7 @@ export class AllCategories extends Component {
           <h4>Categories</h4><hr />
             <ul>
               {categories.map((category) => {
-                return (<li key={category._id}><Link to={`/category/${category._id}`}>{ category.categoryName }</Link></li>);
+                return (<li key={category._id}><Link to={`/category/${category._id}`}>{ category.categoryName } ({ category.count })</Link></li>);
               })}
             </ul>
         </div>

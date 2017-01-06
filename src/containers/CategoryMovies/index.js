@@ -29,7 +29,7 @@ export class CategoryMovies extends React.Component {
   }
 
   render() {
-    const categoryName = this.props.movies.length ? this.props.movies[0].category.categoryName : '';
+    const categoryName = '';
     return (
       <section className={ `page` }>
         <div className="container">

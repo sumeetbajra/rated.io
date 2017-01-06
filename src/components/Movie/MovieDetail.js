@@ -14,7 +14,12 @@ export class MovieDetail extends Component {
                     <MovieStars rating={movie.overallRating} />
                     &nbsp;({movie.ratingsCount} {movie.ratingsCount > 1 ? 'reviews' : 'review'})
                     <br />
-                    {movie.duration} mins - {movie.category ? movie.category.categoryName : ''}<br />
+                    {movie.duration} mins -&nbsp;
+                    {movie.category.map((category, k) => {
+                      const comma = movie.category.length > 1 && k === movie.category.length - 1 ? ', ' : '';
+                      const key = category.categoryId._id;
+                      return <Link to={'/category/' + key} key={key}>{comma + category.categoryId.categoryName}</Link>;
+                    })}<br />
                     <b>Director:</b> {movie.director && movie.director.map((director, i) => {
                                 return <span key={director._id}><Link to={'/celebrity/' + director.celebrityId._id}>{director.celebrityId.fullName}</Link>{i+1 != movie.director.length && <span>,</span>} </span>
                             })}<br />

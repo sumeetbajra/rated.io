@@ -1,6 +1,6 @@
 
 const serverUrl = 'http://localhost:8080/';
-// var serverUrl = 'https://rated-io.herokuapp.com/';
+// const serverUrl = 'https://rated-io.herokuapp.com/';
 
 export const APIEndpoints = {
   ADD_MOVIE: serverUrl + 'movies/add',
@@ -32,4 +32,6 @@ export const APIEndpoints = {
   ADD_MOVIE_CATEGORY: serverUrl + 'categories/add',
   MOVIE_CATEGORY: serverUrl + 'categories/',
   CATEGORY_MOVIES: serverUrl + 'categories/movies/',
+  ADD_MOVIE_TO_CATEGORY: serverUrl + 'categories/addMovieCount/',
+  REMOVE_MOVIE_FROM_CATEGORY: serverUrl + 'categories/subtractMovieCount/',
 };
